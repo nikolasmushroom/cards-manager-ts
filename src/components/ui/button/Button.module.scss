@@ -1,0 +1,126 @@
+@mixin buttonColorsAndBorders($color, $backGroundColor, $border, $border-radius, $box-shadow) {
+  color: $color;
+
+  background-color: $backGroundColor;
+  border: $border;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+}
+
+.button {
+  all: unset;
+  gap: 10px;
+  padding: 6px 28px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.primary {
+  @include buttonColorsAndBorders(
+    var(--color-light-100),
+    var(--color-accent-500),
+    2px solid var(--color-accent-500),
+    4px,
+    0 4px 18px 0 #8c61ff59
+  );
+
+  &:active {
+    background-color: var(--color-accent-700);
+    border: 2px solid var(--color-accent-700);
+  }
+
+  &:hover {
+    background-color: var(--color-accent-300);
+    border: 2px solid var(--color-accent-300);
+  }
+
+  &:focus {
+    background-color: var(--color-accent-500);
+    border: 2px solid var(--color-info-700);
+  }
+
+  &:disabled {
+    color: var(--color-light-900);
+    background-color: var(--color-accent-900);
+    border: 2px solid var(--color-accent-900);
+  }
+}
+
+.secondary {
+  @include buttonColorsAndBorders(
+    var(--color-light-100),
+    var(--color-dark-300),
+    2px solid var(--color-dark-300),
+    4px,
+    0 2px 10px 0 #6d6d6d40
+  );
+
+  &:active {
+    background-color: var(--color-dark-500);
+    border: 2px solid var(--color-dark-500);
+    box-shadow: 0 4px 4px 0 #4d566021;
+  }
+
+  &:hover {
+    background-color: var(--color-dark-100);
+    border: 2px solid var(--color-dark-100);
+  }
+
+  &:focus {
+    border: 2px solid var(--color-info-700);
+  }
+
+  & :disabled {
+    color: var(--color-light-900);
+  }
+}
+
+.link {
+  @include buttonColorsAndBorders(
+    var(--color-light-100),
+    var(--color-accent-500),
+    2px solid var(--color-accent-500),
+    4px,
+    0 4px 18px 0 #8c61ff59
+  );
+  padding: 6px 12px;
+
+  &:active {
+    background-color: var(--color-accent-700);
+    border: 2px solid var(--color-accent-700);
+  }
+
+  &:hover {
+    background-color: var(--color-accent-300);
+    border: 2px solid var(--color-accent-300);
+  }
+
+  &:focus {
+    background-color: var(--color-accent-500);
+    border: 2px solid var(--color-info-700);
+  }
+
+  &:disabled {
+    color: var(--color-light-900);
+    background-color: var(--color-accent-900);
+    border: 2px solid var(--color-accent-900);
+  }
+}
+
+.asLink {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.fullWidth {
+  width: 80%;
+  text-align: center;
+}
+.valueBox {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
