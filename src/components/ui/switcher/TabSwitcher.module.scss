@@ -1,0 +1,45 @@
+.default {
+  all: unset;
+  background-color: inherit;
+  padding: 6px 24px;
+  cursor: pointer;
+  font-family: var(--font-family-primary), sans-serif;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-light-100);
+  line-height: var(--line-height-m);
+  font-size: var(--font-size-m);
+  background: none;
+  border: 1px solid var(--color-dark-300);
+
+  &:first-child {
+    border-top-left-radius: 1px;
+  }
+
+  &:last-child {
+    border-top-right-radius: 1px;
+  }
+
+  &:disabled {
+    border: 1px solid var(--color-dark-300);
+    background: var(--color-dark-700);
+    color: var(--color-dark-300);
+    pointer-events: none;
+    opacity: 50%;
+  }
+
+  &:hover {
+    border: 1px solid var(--color-dark-100);
+    background: var(--color-dark-300);
+    color: var(--color-light-900);
+  }
+
+  &:active {
+    border: 1px solid var(--color-accent-500);
+    background: var(--color-accent-500);
+  }
+
+  &[data-state='active'] {
+    border: 1px solid var(--color-accent-500);
+    background: var(--color-accent-500);
+  }
+}
