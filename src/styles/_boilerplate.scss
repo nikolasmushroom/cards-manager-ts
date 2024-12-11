@@ -18,11 +18,11 @@ select,
 textarea,
 optgroup,
 option {
-  border: none;
-  outline: none;
   font-family: inherit;
   font-size: inherit;
-  background: transparent;
+  font-weight: inherit;
+  font-style: inherit;
+  color: inherit;
 }
 
 body {
@@ -31,8 +31,8 @@ body {
 
   font-family: var(--font-family-primary), sans-serif;
   line-height: var(--line-height-m);
-  color: var(--light-100);
-  background-color: var(--dark-900);
+  color: var(--color-light-100);
+  background-color: var(--color-dark-900);
 }
 
 ol,
