@@ -1,0 +1,122 @@
+:root {
+  --select-height: 36px;
+}
+.Trigger {
+  all: unset;
+  display: flex;
+  align-items: center;
+  height: var(--select-height);
+  justify-content: space-between;
+  border-radius: 2px;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  border: 1px solid var(--color-dark-300);
+  padding: 6px 12px;
+  font-size: var(--font-size-m);
+  cursor: pointer;
+  line-height: var(--line-height-m);
+  background-color: transparent;
+
+  &:hover:not(.disabled) {
+    background-color: var(--color-dark-100);
+  }
+
+  &:focus:not(.disabled) {
+    border: 2px solid var(--color-info-700);
+  }
+
+  &[data-placeholder]:not(.disabled) {
+    color: var(--color-light-100);
+  }
+
+  &.disabled {
+    border: 1px solid var(--color-dark-300);
+    opacity: 50%;
+    pointer-events: none;
+  }
+
+  &[data-state='open'] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &.disabled[data-placeholder] {
+    color: var(--color-dark-300);
+  }
+
+  &[data-state='open'] .icon {
+    transform: rotate(180deg);
+    transition: all 0.2s ease-in-out;
+  }
+
+  &[data-state='closed'] .icon {
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.Content {
+  width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-m);
+  overflow: hidden;
+  background-color: transparent;
+  animation: fadeIn 0.2s ease;
+  border: 1px solid var(--color-dark-300);
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-top: none;
+}
+
+.Viewport {
+  padding: 0;
+}
+
+.Item {
+  font-size: var(--font-size-m);
+  width: var(--radix-select-trigger-width);
+  cursor: pointer;
+  justify-content: flex-start;
+  height: var(--select-height);
+  padding: 12px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  user-select: none;
+
+  &:hover:not(.disabled) {
+    background-color: var(--color-accent-900);
+    color: var(--color-accent-300);
+    opacity: 50%;
+  }
+
+  &[data-highlighted]:not(.disabled) {
+    outline: none;
+    background-color: var(--color-accent-900);
+    color: var(--color-accent-300);
+  }
+}
+
+.Label {
+  position: relative;
+  color: var(--color-dark-100);
+  padding-bottom: 1px;
+}
+.selectWrapper {
+  position: relative;
+  width: var(--radix-select-trigger-width);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
