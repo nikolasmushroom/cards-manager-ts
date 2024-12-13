@@ -35,7 +35,8 @@ export const TextFieldPassword: Story = {
   args: {
     type: 'password',
     label: 'Input',
-    placeholder: 'Password',
+    value: '1234567890',
+    disabled: true,
   },
 }
 

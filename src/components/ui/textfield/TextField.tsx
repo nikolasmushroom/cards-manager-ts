@@ -42,37 +42,39 @@ export const TextField = ({
     onValueChange?.(e.currentTarget.value)
   }
   return (
-    <div className={classNames.root}>
-      {label && (
-        <Typography as={'label'} variant={'Body2'} className={classNames.label}>
-          {label}
-        </Typography>
-      )}
-      <div className={classNames.textFieldContainer}>
-        {search && <Search className={classNames.fieldIcon} />}
-        <input
-          className={classNames.field}
-          onChange={handleChange}
-          placeholder={placeholder}
-          type={finalType}
-          {...rest}
-        />
-        {type === 'password' && (
-          <button
-            className={s.showPassword}
-            type={'button'}
-            onClick={() => setShowPassword(prevState => !prevState)}
-          >
-            {showPassword ? <ClosedEye /> : <OpenEye />}
-          </button>
-        )}
-        {errorMessage && (
-          <Typography variant={'Caption'} className={s.error}>
-            {errorMessage}
+    <>
+      <div className={classNames.root}>
+        {label && (
+          <Typography as={'label'} variant={'Body2'} className={classNames.label}>
+            {label}
           </Typography>
         )}
+        <div className={classNames.textFieldContainer}>
+          {search && <Search className={classNames.fieldIcon} />}
+          <input
+            className={classNames.field}
+            onChange={handleChange}
+            placeholder={placeholder}
+            type={finalType}
+            {...rest}
+          />
+          {type === 'password' && (
+            <button
+              className={s.showPassword}
+              type={'button'}
+              onClick={() => setShowPassword(prevState => !prevState)}
+            >
+              {showPassword ? <ClosedEye /> : <OpenEye />}
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+      {errorMessage && (
+        <Typography variant={'Caption'} className={s.error}>
+          {errorMessage}
+        </Typography>
+      )}
+    </>
   )
 }
 export const getFinalType = (type: ComponentProps<'input'>['type'], showPassword: boolean) => {
