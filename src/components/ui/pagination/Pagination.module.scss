@@ -42,6 +42,10 @@
     transform: rotate(270deg);
     margin-right: 24px;
   }
+  &.disabled {
+    pointer-events: none;
+    color: var(--color-dark-100);
+  }
 }
 .pageSelectorContainer {
   display: flex;

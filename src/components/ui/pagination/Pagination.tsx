@@ -1,4 +1,4 @@
-import { usePagination, UsePaginatonProps } from './usePagination.tsx'
+import { usePagination, UsePaginationProps } from './usePagination.tsx'
 import s from './Pagination.module.scss'
 import { Typography } from '../typography'
 import clsx from 'clsx'
@@ -6,47 +6,44 @@ import SelectIcon from '../../../common/assets/icons/SelectIcon.tsx'
 import { Option, SelectCustom } from '../select'
 
 export type PaginationProps = {
-  setCurrentPage: (page: number | string) => void
-  setPageSize: (pageSize: number) => void
   options?: number[]
-} & UsePaginatonProps
+} & UsePaginationProps
 export const Pagination = ({
-  currentPage,
-  pageSize,
-  setCurrentPage,
+  initialPage,
+  initialItemsPerPage,
   options = [10, 20, 30, 50, 100],
-  setPageSize,
-  totalCount,
-  siblingCount,
+  totalItemsCount,
 }: PaginationProps) => {
-  debugger
-  const paginationRange = usePagination({ currentPage, pageSize, totalCount, siblingCount })
-  const lastPage = paginationRange?.[paginationRange.length - 1]
-  const firstPage = paginationRange?.[0]
-  const pageSizeOptions: Option[] = options.map(size => ({
+  const {
+    arrayOfPages,
+    switchItemsPerPage,
+    switchToNextPage,
+    switchToPrevPage,
+    totalPageCount,
+    currentPage,
+    itemsPerPage,
+    switchPage,
+  } = usePagination({ initialPage, initialItemsPerPage, totalItemsCount })
+
+  const itemsPerPageOptions: Option[] = options.map((size: number) => ({
     value: size.toString(),
     children: size.toString(),
   }))
 
-  const switchToNextPage = () => {
-    if (lastPage !== undefined && currentPage < lastPage) {
-      setCurrentPage(Number(currentPage) + 1)
-    }
-  }
-  const setPageSizeHandler = (pageSize: string) => {
-    setPageSize(Number(pageSize))
-  }
-  const switchToPrevPage = () => {
-    if (firstPage !== undefined && currentPage > firstPage) {
-      setCurrentPage(Number(currentPage) - 1)
-    }
+  const classNames = {
+    switchToPrevPageButton: clsx(s.arrowKey, s.left, currentPage === 1 && s.disabled),
+    switchToNextPageButton: clsx(s.arrowKey, s.right, currentPage === totalPageCount && s.disabled),
   }
   return (
     <div className={s.wrapper}>
-      <div className={clsx(s.arrowKey, s.left)} onClick={switchToPrevPage}>
+      <Typography
+        variant={'Body2'}
+        className={classNames.switchToPrevPageButton}
+        onClick={switchToPrevPage}
+      >
         <SelectIcon />
-      </div>
-      {paginationRange?.map((page, i) => {
+      </Typography>
+      {arrayOfPages?.map((page, i) => {
         return (
           <Typography
             key={i}
@@ -56,13 +53,13 @@ export const Pagination = ({
               currentPage === page && s.current,
               typeof page === 'string' && s.passive
             )}
-            onClick={() => setCurrentPage(page)}
+            onClick={() => switchPage(page)}
           >
             {page}
           </Typography>
         )
       })}
-      <div className={clsx(s.arrowKey, s.right)} onClick={switchToNextPage}>
+      <div className={classNames.switchToNextPageButton} onClick={switchToNextPage}>
         <SelectIcon />
       </div>
       <div className={s.pageSelectorContainer}>
@@ -70,11 +67,11 @@ export const Pagination = ({
           Показать
         </Typography>
         <SelectCustom
-          options={pageSizeOptions}
-          placeholder={pageSize.toString()}
-          onValueChange={setPageSizeHandler}
+          options={itemsPerPageOptions}
+          placeholder={itemsPerPage.toString()}
+          onValueChange={switchItemsPerPage}
           className={s.select}
-          selectHeight={'24px'}
+          style={{ height: '24px' }}
         />
         <Typography as={'p'} variant={'Body2'}>
           на странице
