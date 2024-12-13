@@ -1,45 +1,52 @@
-import { useMemo } from 'react'
-import { getRange } from './getRange.ts'
+import { useMemo, useState } from 'react'
+import { getPagesArray } from './getPagesArray.ts'
 
-export type UsePaginatonProps = {
-  totalCount: number
-  pageSize: number
+export type UsePaginationProps = {
+  totalItemsCount: number
+  initialItemsPerPage: number
   siblingCount?: number
-  currentPage: number | string
+  initialPage?: number
 }
 export const usePagination = ({
-  totalCount,
-  pageSize,
+  totalItemsCount,
+  initialItemsPerPage,
   siblingCount = 1,
-  currentPage,
-}: UsePaginatonProps) => {
-  return useMemo(() => {
-    const totalPageNumbers = siblingCount + 5
-    const totalPageCount = Math.ceil(totalCount / pageSize)
-    if (totalPageNumbers >= totalPageCount) {
-      return getRange(1, totalPageCount)
-    }
-    const DOTS = '...'
-    debugger
-    const leftSiblingIndex = Math.max(Number(currentPage) - siblingCount, 1)
-    const rightSiblingIndex = Math.min(Number(currentPage) + siblingCount, totalPageCount)
+  initialPage = 1,
+}: UsePaginationProps) => {
+  const [currentPage, setCurrentPage] = useState<number>(initialPage)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(initialItemsPerPage)
 
-    const shouldShowLeftDots = leftSiblingIndex > 2
-    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2
-
-    if (!shouldShowLeftDots && shouldShowRightDots) {
-      let leftItemCount = 3 + 2 * siblingCount
-      let leftRange = getRange(1, leftItemCount)
-      return [...leftRange, DOTS, totalPageCount]
+  const totalPagesCount = siblingCount + 5
+  const totalPageCount = Math.ceil(totalItemsCount / itemsPerPage)
+  const switchItemsPerPage = (itemsPerPage: number | string) => {
+    setItemsPerPage(Number(itemsPerPage))
+    setCurrentPage(1)
+  }
+  const switchPage = (page: number | string) => {
+    setCurrentPage(Number(page))
+  }
+  const switchToNextPage = () => {
+    if (currentPage < totalPageCount) {
+      setCurrentPage(Number(currentPage) + 1)
     }
-    if (shouldShowLeftDots && !shouldShowRightDots) {
-      let rightItemCount = 3 + 2 * siblingCount
-      let rightRange = getRange(totalPageCount - rightItemCount + 1, totalPageCount)
-      return [1, DOTS, ...rightRange]
+  }
+  const switchToPrevPage = () => {
+    if (currentPage > initialPage) {
+      setCurrentPage(Number(currentPage) - 1)
     }
-    if (shouldShowLeftDots && shouldShowRightDots) {
-      let middleRange = getRange(leftSiblingIndex, rightSiblingIndex)
-      return [1, DOTS, ...middleRange, DOTS, totalPageCount]
-    }
-  }, [totalCount, pageSize, siblingCount, currentPage])
+  }
+  const arrayOfPages = useMemo(
+    getPagesArray({ currentPage, totalPagesCount, totalPageCount, siblingCount }),
+    [siblingCount, currentPage, totalPageCount]
+  )
+  return {
+    switchPage,
+    switchToPrevPage,
+    switchToNextPage,
+    switchItemsPerPage,
+    totalPageCount,
+    currentPage,
+    itemsPerPage,
+    arrayOfPages,
+  }
 }
