@@ -11,7 +11,7 @@
   box-sizing: border-box;
   text-transform: capitalize;
   border: 1px solid var(--color-dark-300);
-  padding: 6px 12px;
+  padding: 0 12px;
   font-size: var(--font-size-m);
   cursor: pointer;
   line-height: var(--line-height-m);
@@ -28,7 +28,10 @@
   &[data-placeholder]:not(.disabled) {
     color: var(--color-light-100);
   }
-
+  .ItemText {
+    flex-grow: 1;
+    text-align: left;
+  }
   &.disabled {
     border: 1px solid var(--color-dark-300);
     opacity: 50%;

@@ -15,6 +15,7 @@ export type SelectProps = {
   placeholder?: string
   className?: string
   id?: string
+  style?: CSSProperties
   selectHeight?: string
 } & ComponentPropsWithoutRef<typeof Select.Root>
 
@@ -25,24 +26,21 @@ export const SelectCustom = ({
   className,
   defaultValue,
   placeholder,
+  style,
   defaultOpen = false,
   onValueChange,
   onOpenChange,
-  selectHeight = '36px',
   label,
   ...rest
 }: SelectProps) => {
   const id = 'select-id'
   const classNames = {
-    trigger: clsx(s.Trigger, disabled && s.disabled),
+    trigger: clsx(s.Trigger, s.ItemText, disabled && s.disabled),
     selectWrapper: clsx(s.selectWrapper, className),
   }
-  const style = {
-    '--select-height': selectHeight, // Прокидываем высоту через CSS-переменную
-  } as CSSProperties
   const mappedSelectOptions = options.map(option => {
     return (
-      <SelectItem value={option.value} selectHeight={selectHeight}>
+      <SelectItem value={option.value} style={style}>
         {option.children}
       </SelectItem>
     )
@@ -57,18 +55,13 @@ export const SelectCustom = ({
       id={id}
       {...rest}
     >
-      <div className={classNames.selectWrapper} style={style}>
+      <div className={classNames.selectWrapper}>
         {label && (
           <Typography variant={'Body2'} as={'label'} htmlFor={id} className={s.Label}>
             {label}
           </Typography>
         )}
-        <Select.Trigger
-          disabled={disabled}
-          className={classNames.trigger}
-          id={id}
-          aria-label="Food"
-        >
+        <Select.Trigger disabled={disabled} style={style} className={classNames.trigger} id={id}>
           <Select.Value placeholder={placeholder} />
           <Select.Icon className={s.icon}>
             <SelectIcon />
@@ -85,18 +78,15 @@ export const SelectCustom = ({
     </Select.Root>
   )
 }
+
 type ItemProps = {
-  selectHeight?: string
+  style?: CSSProperties
 } & ComponentPropsWithoutRef<typeof Select.Item>
+
 const SelectItem = forwardRef<ElementRef<typeof Select.Item>, ItemProps>(
-  ({ children, className, selectHeight, ...restProps }, ref) => {
+  ({ children, className, style, ...restProps }, ref) => {
     return (
-      <Select.Item
-        className={clsx(s.Item, className)}
-        style={{ height: selectHeight }}
-        {...restProps}
-        ref={ref}
-      >
+      <Select.Item className={clsx(s.Item, className)} style={style} {...restProps} ref={ref}>
         <Select.ItemText>{children}</Select.ItemText>
       </Select.Item>
     )
