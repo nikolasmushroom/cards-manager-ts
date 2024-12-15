@@ -3,7 +3,7 @@ import s from './Checkbox.module.scss'
 import clsx from 'clsx'
 import { ComponentPropsWithoutRef } from 'react'
 import { Typography } from '../typography'
-import CheckedIcon from '../../../common/assets/icons/CheckedIcon.tsx'
+import CheckedIcon from '../../../common/icons/CheckedIcon.tsx'
 
 export type CheckboxProps = {
   label?: string
