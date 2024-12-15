@@ -1,0 +1,20 @@
+.avatarContainer {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+}
+.noAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--color-dark-300);
+  color: var(--color-accent-700);
+  text-transform: uppercase;
+}
