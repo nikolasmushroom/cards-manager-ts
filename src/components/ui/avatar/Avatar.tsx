@@ -5,21 +5,22 @@ import { Typography } from '../typography'
 
 export type AvatarProps = {
   userName?: string
-  showName?: boolean
+  shortName?: string
   src?: ComponentPropsWithoutRef<'img'>['src']
   size?: ComponentPropsWithoutRef<'img'>['width']
 } & ComponentPropsWithoutRef<'div'>
 export const Avatar = forwardRef<ElementRef<'div'>, AvatarProps>(
-  ({ userName, showName, src, size, className, ...rest }, ref) => {
+  ({ userName, shortName, src, size, className, ...rest }, ref) => {
     const classNames = {
+      container: clsx(s.avatarContainer, className),
       avatar: s.avatar,
       noAvatar: clsx(s.avatar, s.noAvatar),
     }
     return (
-      <div className={clsx(s.avtarContainer, className)} {...rest} ref={ref}>
-        {showName && (
-          <Typography variant={'Subtitle1'} as={'span'} className={s.userName}>
-            {userName}
+      <div className={clsx(classNames.container)} {...rest} ref={ref}>
+        {shortName && (
+          <Typography variant={'Subtitle1'} as={'span'} className={s.shortName}>
+            {shortName}
           </Typography>
         )}
         {src ? (
