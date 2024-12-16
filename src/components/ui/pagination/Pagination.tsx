@@ -2,7 +2,7 @@ import { usePagination, UsePaginationProps } from './usePagination.tsx'
 import s from './Pagination.module.scss'
 import { Typography } from '../typography'
 import clsx from 'clsx'
-import SelectIcon from '../../../common/assets/icons/SelectIcon.tsx'
+import SelectIcon from '../../../common/icons/SelectIcon.tsx'
 import { Option, SelectCustom } from '../select'
 
 export type PaginationProps = {
@@ -15,7 +15,7 @@ export const Pagination = ({
   totalItemsCount,
 }: PaginationProps) => {
   const {
-    arrayOfPages,
+    pages,
     switchItemsPerPage,
     switchToNextPage,
     switchToPrevPage,
@@ -43,7 +43,7 @@ export const Pagination = ({
       >
         <SelectIcon />
       </Typography>
-      {arrayOfPages?.map((page, i) => {
+      {pages?.map((page, i) => {
         return (
           <Typography
             key={i}
