@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Dropdown } from './Dropdown.tsx'
 import StartIcon from '../../../common/icons/StartIcon.tsx'
-import DropdownMenu from '../../../common/icons/DropdownMenu.tsx'
+import MenuIcon from '../../../common/icons/MenuIcon.tsx'
 import Pencil from '../../../common/icons/Pencil.tsx'
 import TrashCan from '../../../common/icons/TrashCan.tsx'
 import { Avatar } from '../avatar/Avatar.tsx'
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>
 
 export const DefaultDropdown: Story = {
   args: {
-    trigger: <DropdownMenu />,
+    trigger: <MenuIcon />,
     children: (
       <>
         <DropdownItemWithIcon icon={<StartIcon />} caption={'Learn'} />
@@ -35,7 +35,12 @@ export const DefaultDropdown: Story = {
 }
 export const DropdownWithAvatar: Story = {
   args: {
-    trigger: <Avatar userName={'Ivan'} />,
+    trigger: (
+      <span>
+        <Avatar userName={'Ivan'} />
+      </span>
+    ),
+
     children: (
       <>
         <DropdownItem>
