@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { getPagesArray } from './getPagesArray.ts'
 
 export type UsePaginationProps = {
@@ -16,27 +16,38 @@ export const usePagination = ({
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [itemsPerPage, setItemsPerPage] = useState<number>(initialItemsPerPage)
 
-  const totalPagesCount = siblingCount + 5
+  const totalCount = siblingCount + 5
   const totalPageCount = Math.ceil(totalItemsCount / itemsPerPage)
-  const switchItemsPerPage = (itemsPerPage: number | string) => {
-    setItemsPerPage(Number(itemsPerPage))
-    setCurrentPage(1)
-  }
-  const switchPage = (page: number | string) => {
-    setCurrentPage(Number(page))
-  }
-  const switchToNextPage = () => {
+  const switchItemsPerPage = useCallback(
+    (itemsPerPage: number | string) => {
+      setItemsPerPage(Number(itemsPerPage))
+      setCurrentPage(1)
+      return
+    },
+    [setItemsPerPage, setCurrentPage]
+  )
+
+  const switchPage = useCallback(
+    (page: number | '...') => {
+      if (page !== '...') {
+        setCurrentPage(page)
+      }
+      return
+    },
+    [setCurrentPage]
+  )
+  const switchToNextPage = useCallback(() => {
     if (currentPage < totalPageCount) {
-      setCurrentPage(Number(currentPage) + 1)
+      setCurrentPage(currentPage + 1)
     }
-  }
-  const switchToPrevPage = () => {
+  }, [setCurrentPage, currentPage])
+  const switchToPrevPage = useCallback(() => {
     if (currentPage > initialPage) {
-      setCurrentPage(Number(currentPage) - 1)
+      setCurrentPage(currentPage - 1)
     }
-  }
-  const arrayOfPages = useMemo(
-    getPagesArray({ currentPage, totalPagesCount, totalPageCount, siblingCount }),
+  }, [setCurrentPage, currentPage])
+  const pages: Array<number | '...'> | undefined = useMemo(
+    getPagesArray({ currentPage, totalCount, totalPageCount, siblingCount }),
     [siblingCount, currentPage, totalPageCount]
   )
   return {
@@ -47,6 +58,6 @@ export const usePagination = ({
     totalPageCount,
     currentPage,
     itemsPerPage,
-    arrayOfPages,
+    pages,
   }
 }
