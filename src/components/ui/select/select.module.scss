@@ -1,6 +1,8 @@
 :root {
   --select-height: 36px;
+  --pading: 6px;
 }
+
 .Trigger {
   all: unset;
   display: flex;
@@ -11,7 +13,7 @@
   box-sizing: border-box;
   text-transform: capitalize;
   border: 1px solid var(--color-dark-300);
-  padding: 0 12px;
+  padding: 0 var(--pading);
   font-size: var(--font-size-m);
   cursor: pointer;
   line-height: var(--line-height-m);
@@ -28,14 +30,20 @@
   &[data-placeholder]:not(.disabled) {
     color: var(--color-light-100);
   }
+
   .ItemText {
     flex-grow: 1;
     text-align: left;
   }
+
   &.disabled {
     border: 1px solid var(--color-dark-300);
     opacity: 50%;
     pointer-events: none;
+  }
+
+  & > :not(:last-child) {
+    padding-right: 6px;
   }
 
   &[data-state='open'] {
@@ -48,6 +56,7 @@
   }
 
   &[data-state='open'] .icon {
+    margin-top: 5px;
     transform: rotate(180deg);
     transition: all 0.2s ease-in-out;
   }
@@ -62,6 +71,7 @@
   max-height: var(--radix-select-content-available-height);
   display: flex;
   align-items: center;
+  justify-content: left;
   text-transform: capitalize;
   font-size: var(--font-size-m);
   line-height: var(--line-height-m);
@@ -72,6 +82,7 @@
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   border-top: none;
+  padding-right: var(--pading);
 }
 
 .Viewport {
@@ -110,10 +121,12 @@
   color: var(--color-dark-100);
   padding-bottom: 1px;
 }
+
 .selectWrapper {
   position: relative;
   width: var(--radix-select-trigger-width);
 }
+
 @keyframes fadeIn {
   from {
     opacity: 0;
