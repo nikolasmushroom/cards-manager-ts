@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Typography } from './Typography.tsx'
+import { Typography } from './typography.tsx'
 
 import { BrowserRouter, Link } from 'react-router-dom'
 
 const meta = {
   component: Typography,
   tags: ['autodocs'],
-  title: 'Components/UI/Typography',
+  title: 'Components/Typography',
 } satisfies Meta<typeof Typography>
 
 export default meta
