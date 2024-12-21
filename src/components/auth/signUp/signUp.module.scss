@@ -1,0 +1,27 @@
+.formWrapper {
+  display: flex;
+  flex-flow: column;
+  width: 420px;
+  padding: 33px 36px 29px 36px;
+  gap: 26px;
+}
+
+.form {
+  display: flex;
+  flex-flow: column;
+  gap: 24px;
+  width: 100%;
+}
+.button {
+  margin-top: 40px;
+}
+.footerContainer {
+  text-align: center;
+}
+
+.signIn {
+  font-size: var(--font-size-m);
+  color: var(--color-accent-500);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+}

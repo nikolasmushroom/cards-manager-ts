@@ -16,7 +16,7 @@ export const usePagination = ({
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [itemsPerPage, setItemsPerPage] = useState<number>(initialItemsPerPage)
 
-  const totalCount = siblingCount + 5
+  const totalPagesCount = siblingCount + 5
   const totalPageCount = Math.ceil(totalItemsCount / itemsPerPage)
   const switchItemsPerPage = useCallback(
     (itemsPerPage: number | string) => {
@@ -47,7 +47,7 @@ export const usePagination = ({
     }
   }, [setCurrentPage, currentPage])
   const pages: Array<number | '...'> | undefined = useMemo(
-    getPagesArray({ currentPage, totalCount, totalPageCount, siblingCount }),
+    getPagesArray({ currentPage, totalPagesCount, totalPageCount, siblingCount }),
     [siblingCount, currentPage, totalPageCount]
   )
   return {

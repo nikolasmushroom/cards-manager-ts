@@ -1,8 +1,8 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react'
-import { DropdownItem } from './dropdownItem.tsx'
 import clsx from 'clsx'
-import styles from '../dropdown.module.scss'
+import styles from '../Dropdown.module.scss'
 import { Typography } from '@/components/ui'
+import {DropdownItem} from "@/components/ui/dropdown/DropdownItems/dropdownItem.tsx";
 
 export type DropdownItemWithIconProps = {
   caption: string

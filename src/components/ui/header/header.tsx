@@ -1,9 +1,9 @@
-import s from './header.module.scss'
+import s from './Header.module.scss'
 import { ComponentPropsWithoutRef } from 'react'
-import Logo from '@/common/icons/LogoImage.tsx'
+import Logo from '../../../common/icons/LogoImage'
 import { Button } from '../button'
 import { Typography } from '../typography'
-import { Avatar } from '../avatar/avatar.tsx'
+import {Avatar} from "@/components/ui";
 export type HeaderProps = {
   isLoggedIn?: boolean
   userPhoto?: string

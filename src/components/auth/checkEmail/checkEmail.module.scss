@@ -1,0 +1,15 @@
+.formWrapper {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  width: 420px;
+  padding: 33px 36px 44px 36px;
+  gap: 26px;
+}
+
+.description {
+  color: var(--color-light-900);
+}
+.button {
+  margin-top: 40px;
+}
