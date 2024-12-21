@@ -17,6 +17,7 @@ export type TextFieldProps = {
   onValueChange?: (value: string) => void
   containerProps?: ComponentPropsWithoutRef<'div'>
   labelProps?: ComponentPropsWithoutRef<'label'>
+  labelPosition?: 'left' | 'right' | 'center'
   label?: string
   search?: boolean
   errorMessage?: string
@@ -27,6 +28,7 @@ export const TextField = forwardRef<ElementRef<'input'>, TextFieldProps>(
       containerProps,
       label,
       labelProps,
+      labelPosition = 'left',
       onChange,
       onValueChange,
       placeholder,
@@ -42,6 +44,7 @@ export const TextField = forwardRef<ElementRef<'input'>, TextFieldProps>(
     const classNames = {
       root: clsx(s.root, containerProps?.className),
       label: clsx(s.label, labelProps?.className),
+      labelPosition: clsx(s.labelContainer, s[labelPosition]),
       textFieldContainer: clsx(s.textFieldContainer),
       field: clsx(s.field, errorMessage && s.error, search && s.hasFieldIcon, className),
       error: clsx(s.error),
@@ -53,40 +56,40 @@ export const TextField = forwardRef<ElementRef<'input'>, TextFieldProps>(
       onValueChange?.(e.currentTarget.value)
     }
     return (
-      <>
-        <div className={classNames.root}>
-          {label && (
+      <div className={classNames.root}>
+        {label && (
+          <div className={classNames.labelPosition}>
             <Typography as={'label'} variant={'Body2'} className={classNames.label}>
               {label}
             </Typography>
-          )}
-          <div className={classNames.textFieldContainer}>
-            {search && <Search className={classNames.fieldIcon} />}
-            <input
-              className={classNames.field}
-              ref={ref}
-              onChange={handleChange}
-              placeholder={placeholder}
-              type={finalType}
-              {...rest}
-            />
-            {type === 'password' && (
-              <button
-                className={s.showPassword}
-                type={'button'}
-                onClick={() => setShowPassword(prevState => !prevState)}
-              >
-                {showPassword ? <ClosedEye /> : <OpenEye />}
-              </button>
-            )}
           </div>
+        )}
+        <div className={classNames.textFieldContainer}>
+          {search && <Search className={classNames.fieldIcon} />}
+          <input
+            className={classNames.field}
+            ref={ref}
+            onChange={handleChange}
+            placeholder={placeholder}
+            type={finalType}
+            {...rest}
+          />
+          {type === 'password' && (
+            <button
+              className={s.showPassword}
+              type={'button'}
+              onClick={() => setShowPassword(prevState => !prevState)}
+            >
+              {showPassword ? <ClosedEye /> : <OpenEye />}
+            </button>
+          )}
         </div>
         {errorMessage && (
           <Typography variant={'Caption'} className={s.error}>
             {errorMessage}
           </Typography>
         )}
-      </>
+      </div>
     )
   }
 )

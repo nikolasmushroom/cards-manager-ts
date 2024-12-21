@@ -4,7 +4,7 @@ import {
   changeNameForm,
   useChangeName,
 } from '@/components/auth/editProfile/changeName/useChangeName.ts'
-import { Button } from '@/components/ui/button/Button.tsx'
+import { Button } from '@/components/ui/button'
 
 type Props = {
   name?: string

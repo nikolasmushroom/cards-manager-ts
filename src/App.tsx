@@ -1,5 +1,7 @@
+import { EditProfile } from '@/components/auth/editProfile'
+
 function App() {
-  return <div>App</div>
+  return <EditProfile name={'Ivan'} email={'j&johnson@gmail.com'} />
 }
 
 export default App

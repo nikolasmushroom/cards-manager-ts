@@ -6,6 +6,7 @@ export type getPagesArrayProps = {
   totalPageCount: number
   siblingCount: number
 }
+type DotsType = '...'
 export const getPagesArray = ({
   currentPage,
   totalPagesCount,
@@ -16,7 +17,7 @@ export const getPagesArray = ({
     if (totalPagesCount >= totalPageCount) {
       return getRange(1, totalPageCount)
     }
-    const DOTS = '...'
+    const DOTS: DotsType = '...'
     const leftSiblingIndex = Math.max(Number(currentPage) - siblingCount, 1)
     const rightSiblingIndex = Math.min(Number(currentPage) + siblingCount, totalPageCount)
 
