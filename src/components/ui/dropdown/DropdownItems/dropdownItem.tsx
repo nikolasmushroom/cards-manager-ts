@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import styles from '../Dropdown.module.scss'
+import styles from '../dropdown.module.scss'
 
 export type DropdownItemProps = {} & ComponentPropsWithoutRef<typeof DropdownMenu.Item>
 export const DropdownItem = ({

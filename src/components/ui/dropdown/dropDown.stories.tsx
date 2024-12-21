@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Dropdown } from './Dropdown.tsx'
-import StartIcon from '../../../common/icons/StartIcon.tsx'
-import MenuIcon from '../../../common/icons/MenuIcon.tsx'
-import Pencil from '../../../common/icons/Pencil.tsx'
-import TrashCan from '../../../common/icons/TrashCan.tsx'
-import { Avatar } from '../avatar/Avatar.tsx'
-import { AvatarInfo } from '../avatar/avatarInfo/AvatarInfo.tsx'
-import Logout from '../../../common/icons/Logout.tsx'
-import ProfileIcon from '../../../common/icons/ProfileIcon.tsx'
+import { Dropdown } from './dropdown.tsx'
+import StartIcon from '@/common/icons/StartIcon.tsx'
+import MenuIcon from '@/common/icons/MenuIcon.tsx'
+import Pencil from '@/common/icons/Pencil.tsx'
+import TrashCan from '@/common/icons/TrashCan.tsx'
+import { Avatar } from '../avatar/avatar.tsx'
+import { AvatarInfo } from '../avatar/avatarInfo/avatarInfo.tsx'
+import Logout from '@/common/icons/Logout.tsx'
+import ProfileIcon from '@/common/icons/ProfileIcon.tsx'
 import { DropdownItemWithIcon } from './DropdownItems'
 import { DropdownItem } from './DropdownItems'
 
 const meta = {
   component: Dropdown,
   tags: ['autodocs'],
-  title: 'Components/UI/Dropdown',
+  title: 'Components/Dropdown',
 } satisfies Meta<typeof Dropdown>
 
 export default meta

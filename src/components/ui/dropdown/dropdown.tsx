@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import s from './Dropdown.module.scss'
+import s from './dropdown.module.scss'
 import {
   ComponentPropsWithoutRef,
   CSSProperties,
