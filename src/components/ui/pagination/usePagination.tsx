@@ -6,31 +6,37 @@ export type UsePaginationProps = {
   initialItemsPerPage: number
   siblingCount?: number
   initialPage?: number
+  onCurrenPageChange?: (page: number) => void
 }
 export const usePagination = ({
   totalItemsCount,
   initialItemsPerPage,
   siblingCount = 1,
   initialPage = 1,
+  onCurrenPageChange,
 }: UsePaginationProps) => {
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [itemsPerPage, setItemsPerPage] = useState<number>(initialItemsPerPage)
 
+  const changePageHandler = (page: number) => {
+    setCurrentPage(page)
+    onCurrenPageChange && onCurrenPageChange(page)
+  }
   const totalPagesCount = siblingCount + 5
   const totalPageCount = Math.ceil(totalItemsCount / itemsPerPage)
   const switchItemsPerPage = useCallback(
     (itemsPerPage: number | string) => {
       setItemsPerPage(Number(itemsPerPage))
-      setCurrentPage(1)
+      changePageHandler(1)
       return
     },
-    [setItemsPerPage, setCurrentPage]
+    [setItemsPerPage, changePageHandler]
   )
 
   const switchPage = useCallback(
     (page: number | '...') => {
       if (page !== '...') {
-        setCurrentPage(page)
+        changePageHandler(page)
       }
       return
     },
@@ -38,12 +44,12 @@ export const usePagination = ({
   )
   const switchToNextPage = useCallback(() => {
     if (currentPage < totalPageCount) {
-      setCurrentPage(currentPage + 1)
+      changePageHandler(currentPage + 1)
     }
   }, [setCurrentPage, currentPage])
   const switchToPrevPage = useCallback(() => {
-    if (currentPage > initialPage) {
-      setCurrentPage(currentPage - 1)
+    if (currentPage > 1) {
+      changePageHandler(currentPage - 1)
     }
   }, [setCurrentPage, currentPage])
   const pages: Array<number | '...'> | undefined = useMemo(
@@ -53,6 +59,7 @@ export const usePagination = ({
   return {
     switchPage,
     switchToPrevPage,
+    onCurrenPageChange,
     switchToNextPage,
     switchItemsPerPage,
     totalPageCount,
