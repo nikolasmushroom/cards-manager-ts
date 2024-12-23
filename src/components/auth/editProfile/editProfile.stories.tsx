@@ -1,6 +1,5 @@
 import type { Meta } from '@storybook/react'
 import { StoryObj } from '@storybook/react'
-import { MemoryRouter } from 'react-router-dom'
 import { EditProfile } from '@/components/auth/editProfile/editProfile.tsx'
 
 const meta = {
@@ -8,13 +7,7 @@ const meta = {
   component: EditProfile,
   tags: ['autodocs'],
   argTypes: {},
-  decorators: [
-    Story => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
+  decorators: [Story => <Story />],
 } satisfies Meta<typeof EditProfile>
 
 export default meta
