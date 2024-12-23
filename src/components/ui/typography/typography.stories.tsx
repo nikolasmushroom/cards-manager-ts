@@ -2,8 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Typography } from './typography.tsx'
 
-import { BrowserRouter, Link } from 'react-router-dom'
-
 const meta = {
   component: Typography,
   tags: ['autodocs'],
@@ -28,14 +26,12 @@ export const AllTypography: Story = {
         <Typography variant={'Subtitle2'}>Subtitle 2</Typography>
         <Typography variant={'Caption'}>Caption</Typography>
         <Typography variant={'Overline'}>Overline</Typography>
-        <BrowserRouter>
-          <Typography variant={'Link1'} as={Link} to={'/it-incubator.com'}>
-            Link 1
-          </Typography>
-          <Typography variant={'Link2'} as={Link} to={'/it-incubator.com'}>
-            Link 2
-          </Typography>
-        </BrowserRouter>
+        <Typography variant={'Link1'} as={'a'} href={'/it-incubator.com'}>
+          Link 1
+        </Typography>
+        <Typography variant={'Link2'} as={'a'} href={'/it-incubator.com'}>
+          Link 2
+        </Typography>
       </div>
     )
   },
