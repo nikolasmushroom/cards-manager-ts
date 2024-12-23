@@ -4,8 +4,8 @@ import StartIcon from '@/common/icons/StartIcon.tsx'
 import MenuIcon from '@/common/icons/MenuIcon.tsx'
 import Pencil from '@/common/icons/Pencil.tsx'
 import TrashCan from '@/common/icons/TrashCan.tsx'
-import { Avatar } from '../avatar/avatar.tsx'
-import { AvatarInfo } from '../avatar/avatarInfo/avatarInfo.tsx'
+import { Avatar } from '@/components/ui'
+import { AvatarInfo } from '../avatar/avatarInfo/'
 import Logout from '@/common/icons/Logout.tsx'
 import ProfileIcon from '@/common/icons/ProfileIcon.tsx'
 import { DropdownItemWithIcon } from './DropdownItems'
@@ -20,7 +20,6 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-
 export const DefaultDropdown: Story = {
   args: {
     trigger: <MenuIcon />,
