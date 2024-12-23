@@ -8,9 +8,9 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx",
     /* Linting */
     "strict": true,
@@ -18,7 +18,6 @@
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
-    "noImplicitThis": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node"],
