@@ -10,6 +10,10 @@
   border-radius: 50%;
   cursor: pointer;
   object-fit: cover;
+  &.shortName {
+    margin-left: 14px;
+    border: none;
+  }
 }
 .shortName {
   color: var(--color-light-100);
@@ -23,4 +27,8 @@
   background-color: var(--color-dark-300);
   color: var(--color-accent-700);
   text-transform: uppercase;
+  &.shortName {
+    margin-left: 14px;
+    border: none;
+  }
 }

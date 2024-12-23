@@ -10,12 +10,13 @@ export type AvatarProps = {
   size?: ComponentPropsWithoutRef<'img'>['width']
 } & ComponentPropsWithoutRef<'div'>
 export const Avatar = forwardRef<ElementRef<'div'>, AvatarProps>(
-  ({ userName, shortName, src, size, className, ...rest }, ref) => {
+  ({ userName, shortName, src, size, style, className, ...rest }, ref) => {
     const classNames = {
       container: clsx(s.avatarContainer, className),
-      avatar: s.avatar,
-      noAvatar: clsx(s.avatar, s.noAvatar),
+      avatar: clsx(s.avatar, shortName ? s.shortName : ''),
+      noAvatar: clsx(s.avatar, s.noAvatar, shortName ? s.shortName : ''),
     }
+    const styles = { width: size, height: size, ...style }
     return (
       <div className={clsx(classNames.container)} {...rest} ref={ref}>
         {shortName && (
@@ -24,15 +25,9 @@ export const Avatar = forwardRef<ElementRef<'div'>, AvatarProps>(
           </Typography>
         )}
         {src ? (
-          <img
-            width={size}
-            height={size}
-            src={src}
-            alt={'avatar img'}
-            className={classNames.avatar}
-          />
+          <img style={styles} src={src} alt={'avatar img'} className={classNames.avatar} />
         ) : (
-          <Typography as={'div'} variant={'H4'} className={classNames.noAvatar}>
+          <Typography style={styles} as={'div'} variant={'H4'} className={classNames.noAvatar}>
             {userName?.[0]}
           </Typography>
         )}
