@@ -1,0 +1,10 @@
+.iconsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
+
+  & > * {
+    cursor: pointer;
+  }
+}
