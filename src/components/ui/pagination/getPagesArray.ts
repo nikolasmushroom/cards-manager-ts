@@ -13,7 +13,7 @@ export const getPagesArray = ({
   totalPageCount,
   siblingCount,
 }: getPagesArrayProps) => {
-  return () => {
+  return (): (number | DotsType)[] => {
     if (totalPagesCount >= totalPageCount) {
       return getRange(1, totalPageCount)
     }
@@ -38,5 +38,6 @@ export const getPagesArray = ({
       let middleRange = getRange(leftSiblingIndex, rightSiblingIndex)
       return [1, DOTS, ...middleRange, DOTS, totalPageCount]
     }
+    return getRange(1, totalPageCount)
   }
 }
