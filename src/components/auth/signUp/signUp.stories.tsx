@@ -1,6 +1,5 @@
 import type { Meta } from '@storybook/react'
 import { StoryObj } from '@storybook/react'
-import { MemoryRouter } from 'react-router-dom'
 import { SignUp } from '@/components/auth/signUp/signUp.tsx'
 
 const meta = {
@@ -8,13 +7,7 @@ const meta = {
   component: SignUp,
   tags: ['autodocs'],
   argTypes: {},
-  decorators: [
-    Story => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
+  decorators: [Story => <Story />],
 } satisfies Meta<typeof SignUp>
 
 export default meta
