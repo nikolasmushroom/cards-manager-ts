@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.filters {
+  width: 100%;
+  gap: 24px;
+  display: flex;
+  margin-block: 36px;
+  justify-content: space-between;
+  align-items: center;
+}
+.tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 25px;
+}
+.buttons {
+  min-width: 144px;
+}
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  padding-top: 24px;
+  width: 100%;
+}
+.pagination {
+  justify-content: left;
+}
