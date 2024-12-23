@@ -1,18 +1,24 @@
 import { usePagination, UsePaginationProps } from './usePagination.tsx'
-import s from './pagination.module.scss'
+import s from './Pagination.module.scss'
 import { Typography } from '../typography'
 import clsx from 'clsx'
 import SelectIcon from '../../../common/icons/Arrow.tsx'
 import { Option, SelectCustom } from '../select'
+import { useEffect } from 'react'
 
 export type PaginationProps = {
   options?: number[]
+  className?: string
+  onItemsPerPageChange?: (itemsPerPage: number) => void
 } & UsePaginationProps
 export const Pagination = ({
   initialPage,
   initialItemsPerPage,
   options = [10, 20, 30, 50, 100],
   totalItemsCount,
+  onItemsPerPageChange,
+  onCurrenPageChange,
+  className,
 }: PaginationProps) => {
   const {
     pages,
@@ -23,7 +29,10 @@ export const Pagination = ({
     currentPage,
     itemsPerPage,
     switchPage,
-  } = usePagination({ initialPage, initialItemsPerPage, totalItemsCount })
+  } = usePagination({ initialPage, initialItemsPerPage, onCurrenPageChange, totalItemsCount })
+  useEffect(() => {
+    onItemsPerPageChange && onItemsPerPageChange(itemsPerPage)
+  }, [itemsPerPage])
 
   const itemsPerPageOptions: Option[] = options.map((size: number) => ({
     value: size.toString(),
@@ -33,9 +42,11 @@ export const Pagination = ({
   const classNames = {
     switchToPrevPageButton: clsx(s.arrowKey, s.left, currentPage === 1 && s.disabled),
     switchToNextPageButton: clsx(s.arrowKey, s.right, currentPage === totalPageCount && s.disabled),
+    paginationContainer: clsx(s.wrapper, className),
   }
+
   return (
-    <div className={s.wrapper}>
+    <div className={classNames.paginationContainer}>
       <Typography
         variant={'Body2'}
         className={classNames.switchToPrevPageButton}
