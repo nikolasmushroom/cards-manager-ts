@@ -1,7 +1,7 @@
 import { FormTextField } from '@/components/form/form-textfield.tsx'
 import { FormCheckbox } from '@/components/form/form-checkbox.tsx'
 import s from './signIn.module.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { SignInForm, useSignIn } from '@/components/auth/signIn/useSignIn.ts'
 import { Typography } from '@/components/ui/typography'
 import { Card } from '@/components/ui/card'
@@ -13,7 +13,10 @@ type Props = {
 
 export const SignIn = ({ onSubmit }: Props) => {
   const { handleSubmit, control } = useSignIn()
-
+  const navigate = useNavigate()
+  const navigateToForgotPassword = () => {
+    navigate('/forgot-password')
+  }
   return (
     <Card className={s.formWrapper}>
       <Typography variant={'H1'}>Sign In</Typography>
@@ -34,8 +37,7 @@ export const SignIn = ({ onSubmit }: Props) => {
         />
         <Typography
           variant={'Body2'}
-          as={Link}
-          to={'/forget-password'}
+          onClick={navigateToForgotPassword}
           className={s.forgotPassword}
         >
           Forgot Password?
@@ -47,7 +49,7 @@ export const SignIn = ({ onSubmit }: Props) => {
           <Typography variant={'Body2'} as={'p'}>
             Don't have an account?
           </Typography>
-          <Typography variant={'Link2'} as={Link} to={'/signup'} className={s.signUp}>
+          <Typography variant={'Link2'} as={Link} to={'/sign-up'} className={s.signUp}>
             Sign Up
           </Typography>
         </div>
