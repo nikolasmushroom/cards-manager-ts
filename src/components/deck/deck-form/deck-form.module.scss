@@ -1,0 +1,18 @@
+.form {
+  padding: 24px;
+  & > *:not(:last-child) {
+    padding-bottom: 20px;
+  }
+}
+.filePicker {
+  width: 100%;
+}
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.checkBox {
+  max-width: 12.5rem;
+  margin-top: -23px;
+}
