@@ -3,26 +3,53 @@ import { ComponentPropsWithoutRef } from 'react'
 import Logo from '../../../common/icons/LogoImage'
 import { Button } from '../button'
 import { Typography } from '../typography'
-import {Avatar} from "@/components/ui";
+import { Avatar, Dropdown } from '@/components/ui'
+import { DropdownItem, DropdownItemWithIcon } from '@/components/ui/dropdown/DropdownItems'
+import { AvatarInfo } from '@/components/ui/avatar/avatarInfo'
+import ProfileIcon from '@/common/icons/ProfileIcon.tsx'
+import Logout from '@/common/icons/Logout.tsx'
+
 export type HeaderProps = {
   isLoggedIn?: boolean
   userPhoto?: string
   userName?: string
+  userEmail?: string
   shortName?: string
+  logout: () => void
 } & ComponentPropsWithoutRef<'header'>
-export const Header = ({ isLoggedIn, shortName, userName, userPhoto, ...rest }: HeaderProps) => {
+export const Header = ({
+  isLoggedIn,
+  shortName,
+  userName,
+  userPhoto,
+  userEmail,
+  logout,
+  ...rest
+}: HeaderProps) => {
   return (
     <header className={s.headerWrapper} {...rest}>
       <div className={s.content}>
         <Logo className={s.logo} />
         {!isLoggedIn ? (
-          <Button variant={'secondary'} as={'a'} href={'https://it-incubator.io/'}>
+          <Button variant={'secondary'} as={'a'}>
             <Typography as={'p'} variant={'Subtitle2'}>
               Sign In
             </Typography>
           </Button>
         ) : (
-          <Avatar src={userPhoto} userName={userName} shortName={shortName} />
+          <Dropdown
+            align={'end'}
+            trigger={<Avatar src={userPhoto} userName={userName} shortName={shortName} />}
+          >
+            <>
+              <DropdownItem>
+                <Avatar userName={userName} />
+                <AvatarInfo name={userName} caption={userEmail} />
+              </DropdownItem>
+              <DropdownItemWithIcon icon={<ProfileIcon />} caption={'My Profile'} />
+              <DropdownItemWithIcon icon={<Logout />} caption={'Sign Out'} onClick={logout} />
+            </>
+          </Dropdown>
         )}
       </div>
     </header>
