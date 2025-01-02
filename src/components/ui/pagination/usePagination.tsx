@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { getPagesArray } from './getPagesArray.ts'
 
 export type UsePaginationProps = {
@@ -17,7 +17,11 @@ export const usePagination = ({
 }: UsePaginationProps) => {
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [itemsPerPage, setItemsPerPage] = useState<number>(initialItemsPerPage)
-
+  useEffect(() => {
+    if (currentPage !== initialPage) {
+      setCurrentPage(initialPage)
+    }
+  }, [initialPage])
   const changePageHandler = (page: number) => {
     setCurrentPage(page)
     onCurrenPageChange && onCurrenPageChange(page)
