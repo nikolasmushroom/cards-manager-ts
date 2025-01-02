@@ -5,7 +5,7 @@ import {
   useChangeName,
 } from '@/components/auth/editProfile/changeName/useChangeName.ts'
 import { Button } from '@/components/ui/button'
-import { useEditProfileInfoMutation } from '@/services/auth/authService.ts'
+import { useEditProfileInfoMutation } from '@/services/auth/auth.service.ts'
 
 type Props = {
   src?: string
