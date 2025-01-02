@@ -1,7 +1,16 @@
+.tabsContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
 .default {
   all: unset;
   background-color: inherit;
   padding: 6px 24px;
+  display: flex;
+  align-items: center;
+  min-width: 112px;
+  max-height: 36px;
   cursor: pointer;
   font-family: var(--font-family-primary), sans-serif;
   font-weight: var(--font-weight-regular);
@@ -42,4 +51,8 @@
     border: 1px solid var(--color-accent-500);
     background: var(--color-accent-500);
   }
+}
+.List {
+  display: flex;
+  flex-direction: row;
 }
