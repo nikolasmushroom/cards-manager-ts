@@ -7,6 +7,9 @@ import { Typography } from '../typography'
 export type SliderCustomProps = {
   onValueChange?: (value: number[]) => void
   value: number[] | string[]
+  max?: number
+  min?: number
+  step?: number
 } & ComponentPropsWithoutRef<typeof Slider.Root>
 export const SliderCustom = ({
   value,
