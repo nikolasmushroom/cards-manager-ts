@@ -30,7 +30,7 @@ export const ForgotPassword = ({ onSubmit }: Props) => {
           <Typography variant={'Body2'} as={'p'}>
             Did you remember your password?
           </Typography>
-          <Typography variant={'Link2'} as={Link} to={'/signup'} className={s.tryLoggingIn}>
+          <Typography variant={'Link2'} as={Link} to={'/sign-up'} className={s.tryLoggingIn}>
             Try logging in
           </Typography>
         </div>
