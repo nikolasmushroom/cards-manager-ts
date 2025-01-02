@@ -10,8 +10,11 @@ import { ForgotPasswordPage } from '@/pages/login/forgotPasswordPage.tsx'
 import { SignUpPage } from '@/pages/login/signUpPage.tsx'
 import { CheckEmailPage } from '@/pages/login/checkEmailPage.tsx'
 import { CreateNewPasswordPage } from '@/pages/login/createNewPasswordPage.tsx'
-import { DecksPage } from '@/pages/cards/decks'
 import { Profile } from '@/pages/profile'
+import { DeckPage } from '@/pages/deck-page/deck-page.tsx'
+import { DecksPage } from '@/pages/decks-page/ui/decks-page.tsx'
+import { LearnPage } from '@/pages/learn-page/learn-page.tsx'
+import { Layout } from '@/components/ui/layout/layout.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -31,7 +34,7 @@ const publicRoutes: RouteObject[] = [
     element: <CheckEmailPage />,
   },
   {
-    path: '/create-new-password',
+    path: '/recover-password/:token',
     element: <CreateNewPasswordPage />,
   },
   {
@@ -44,6 +47,14 @@ const privateRoutes: RouteObject[] = [
     path: '/',
     element: <DecksPage />,
   },
+  {
+    path: '/decks/:deckId',
+    element: <DeckPage />,
+  },
+  {
+    path: '/decks/:deckId/learn',
+    element: <LearnPage />,
+  },
 ]
 
 function PrivateRoutes() {
@@ -52,12 +63,11 @@ function PrivateRoutes() {
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }
 
-const router = createBrowserRouter([
-  { element: <PrivateRoutes />, children: privateRoutes },
-  ...publicRoutes,
+export const router = createBrowserRouter([
   {
-    path: '*',
-    element: <h1>404</h1>,
+    path: '/',
+    element: <Layout />,
+    children: [{ element: <PrivateRoutes />, children: privateRoutes }, ...publicRoutes],
   },
 ])
 export const Router = () => {
