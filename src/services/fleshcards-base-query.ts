@@ -38,11 +38,13 @@ export const baseQueryWithReauth: BaseQueryFn<
           api,
           extraOptions
         )) as any
-        if (refreshResult.data) {
-          localStorage.setItem('accessToken', refreshResult.data.accessToken.trim())
-          localStorage.setItem('refreshToken', refreshResult.data.refreshToken.trim())
+        if (refreshToken) {
+          if (refreshResult.data) {
+            localStorage.setItem('accessToken', refreshResult.data.accessToken.trim())
+            localStorage.setItem('refreshToken', refreshResult.data.refreshToken.trim())
 
-          result = await baseQuery(args, api, extraOptions)
+            result = await baseQuery(args, api, extraOptions)
+          }
         }
       } finally {
         release()
