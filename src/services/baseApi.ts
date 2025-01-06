@@ -4,6 +4,6 @@ import { baseQueryWithReauth } from '@/services/fleshcards-base-query.ts'
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Auth', 'Decks', 'Learn', 'Cards'],
+  tagTypes: ['Auth', 'Decks', 'Learn', 'Cards', 'DeckCards'],
   endpoints: () => ({}),
 })
