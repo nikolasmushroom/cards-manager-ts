@@ -1,18 +1,36 @@
 import { FormTextField } from '@/components/form/form-textfield.tsx'
 import { Button, Card, Typography } from '@/components/ui'
 import s from './forgotPassword.module.scss'
+import { z } from 'zod'
 import { Link } from 'react-router-dom'
-import {
-  ForgotPasswordForm,
-  useForgotPassword,
-} from '@/components/auth/forgotPassword/useForgotPassword.ts'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
+const forgotPasswordSchema = z.object({
+  email: z.string().trim().email('Not a valid email address'),
+})
+export type ForgotPasswordForm = z.infer<typeof forgotPasswordSchema>
 
 type Props = {
   onSubmit: (values: ForgotPasswordForm) => void
 }
 
 export const ForgotPassword = ({ onSubmit }: Props) => {
-  const { handleSubmit, control } = useForgotPassword()
+  const { handleSubmit, control, formState, setError, clearErrors, watch } =
+    useForm<ForgotPasswordForm>({
+      resolver: zodResolver(forgotPasswordSchema),
+      mode: 'onBlur',
+    })
+  const email = watch('email')
+
+  useEffect(() => {
+    if (formState.errors.email) {
+      setError('email', { message: 'error' })
+    }
+    if (!formState.errors.email) {
+      clearErrors('email')
+    }
+  }, [email])
   return (
     <Card className={s.formWrapper}>
       <Typography variant={'H1'}>Forgot your password?</Typography>
