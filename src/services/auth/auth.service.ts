@@ -45,16 +45,23 @@ export const authService = baseApi.injectEndpoints({
       query: () => ({
         url: '/v2/auth/logout',
         method: 'POST',
-        arguments: {},
       }),
       async onQueryStarted(_, { queryFulfilled, dispatch }) {
-        dispatch(authService.util.resetApiState())
-        const { data } = await queryFulfilled
-        if (!data) {
-          return
+        const patchResult = dispatch(
+          authService.util.updateQueryData('me', undefined, () => {
+            return {} as MeResponse
+          })
+        )
+        try {
+          const res = (await queryFulfilled) as any
+          if (res.meta.response.status === 204) {
+            localStorage.removeItem('refreshToken')
+            localStorage.removeItem('accessToken')
+          }
+          dispatch(authService.util.resetApiState())
+        } catch {
+          patchResult.undo()
         }
-        localStorage.removeItem('refreshToken')
-        localStorage.removeItem('accessToken')
       },
       invalidatesTags: ['Auth'],
     }),
