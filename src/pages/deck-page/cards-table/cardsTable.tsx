@@ -3,9 +3,10 @@ import s from './cards-table.module.scss'
 import { Column, SortType } from '@/components/ui/table/types.ts'
 import { Table, TableHeader, TBody, TCell, TRow } from '@/components/ui/table'
 import { Typography } from '@/components/ui'
-import Pencil from '@/common/icons/Pencil.tsx'
-import TrashCan from '@/common/icons/TrashCan.tsx'
 import { Card } from '@/services/decks/decks.types.ts'
+import { Rating } from '@/components/ui/rating/rating.tsx'
+import { CardModal } from '@/components/card/card-modal/card-modal.tsx'
+import { DeleteCardModal } from '@/components/card/card-form/delete-card-modal.tsx'
 
 type Props = {
   cards?: Card[]
@@ -18,6 +19,7 @@ export const CardsTable = ({ cards, currentUserId }: Props) => {
     { key: '2', title: 'Answer' },
     { key: '3', title: 'Last Updated' },
     { key: '4', title: 'Grade' },
+    { key: '5', title: '' },
   ]
   return (
     <Table className={s.table}>
@@ -37,14 +39,14 @@ export const CardsTable = ({ cards, currentUserId }: Props) => {
                   {new Date(card.updated).toLocaleDateString('ru-RU')}
                 </Typography>
               </TCell>
-              <TCell>*****</TCell>
+              <TCell>
+                <Rating itemsNumber={5} gradeNumber={card.grade ?? 0} changeRatingOnClick={false} />
+              </TCell>
               {card.userId === currentUserId && (
                 <TCell>
                   <div className={s.iconsContainer}>
-                    <div className={s.iconsContainer}>
-                      <Pencil />
-                      <TrashCan />
-                    </div>
+                    <CardModal title={'Update card'} card={card} />
+                    <DeleteCardModal card={card} />
                   </div>
                 </TCell>
               )}
