@@ -15,11 +15,13 @@ export type HeaderProps = {
   userName?: string
   userEmail?: string
   shortName?: string
+  navigateToLogin?: () => void
   logout: () => void
 } & ComponentPropsWithoutRef<'header'>
 export const Header = ({
   isLoggedIn,
   shortName,
+  navigateToLogin,
   userName,
   userPhoto,
   userEmail,
@@ -29,7 +31,7 @@ export const Header = ({
   return (
     <header className={s.headerWrapper} {...rest}>
       <div className={s.content}>
-        <Logo className={s.logo} />
+        <Logo className={s.logo} onClick={navigateToLogin} />
         {!isLoggedIn ? (
           <Button variant={'secondary'} as={'a'}>
             <Typography as={'p'} variant={'Subtitle2'}>

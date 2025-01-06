@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>
 
 export const AuthorizedUserHeader: Story = {
   args: {
+    logout: () => {},
     isLoggedIn: true,
     shortName: 'Nikolay',
     userPhoto:
@@ -21,6 +22,7 @@ export const AuthorizedUserHeader: Story = {
 }
 export const AnauthorizedUserHeader: Story = {
   args: {
+    logout: () => {},
     isLoggedIn: false,
   },
 }
