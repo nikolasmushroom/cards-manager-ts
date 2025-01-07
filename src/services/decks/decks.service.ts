@@ -1,13 +1,13 @@
 import {
-  CardsListResponse,
   CreateDecksArgs,
   Deck,
-  DeckMinMaxResponse,
   DecksListResponse,
   DeleteDeckArgs,
-  GetCardsArgs,
   GetDeckByIdArgs,
   GetDecksArgs,
+  LearnDeckArgs,
+  LearnDeckResponse,
+  SaveGradeArgs,
   UpdateDecksArgs,
 } from '@/services/decks/decks.types.ts'
 import { baseApi } from '@/services/baseApi.ts'
@@ -126,8 +126,8 @@ export const decksService = baseApi.injectEndpoints({
           deleteResults.forEach(deleteResult => deleteResult.undo())
         }
       },
-      query: args => ({
-        url: `v1/decks/${args.id}`,
+      query: ({ id }) => ({
+        url: `v1/decks/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Decks'],
@@ -139,15 +139,21 @@ export const decksService = baseApi.injectEndpoints({
         parameters: args,
       }),
     }),
-    getDeckCards: build.query<CardsListResponse, GetCardsArgs>({
-      query: ({ id, ...parameters }) => ({
-        url: `v1/decks/${id}/cards`,
+    learnDeck: build.query<LearnDeckResponse, LearnDeckArgs>({
+      query: ({ id, previousCardId }) => ({
+        url: `v1/decks/${id}/learn`,
         method: 'GET',
-        parameters: parameters,
+        params: { previousCardId },
       }),
+      providesTags: ['Cards'],
     }),
-    getMinMaxCards: build.query<DeckMinMaxResponse, void>({
-      query: () => 'v2/decks/min-max-cards',
+    saveGrade: build.mutation<LearnDeckResponse, SaveGradeArgs>({
+      query: ({ id, cardId, grade }) => ({
+        url: `v1/decks/${id}/learn`,
+        method: 'POST',
+        body: { cardId, grade },
+      }),
+      invalidatesTags: ['Cards'],
     }),
   }),
 })
@@ -156,7 +162,7 @@ export const {
   useCreateDeckMutation,
   useUpdateDeckMutation,
   useDeleteDeckMutation,
-  useGetDeckCardsQuery,
   useGetDeckByIdQuery,
-  useGetMinMaxCardsQuery,
+  useLearnDeckQuery,
+  useSaveGradeMutation,
 } = decksService
