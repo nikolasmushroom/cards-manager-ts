@@ -37,29 +37,19 @@ export interface GetDecksArgs {
   currentPage?: number
   itemsPerPage?: number
 }
+
 export interface CreateDecksArgs {
   cover?: File | null
   name: string
   isPrivate?: boolean
 }
-export type DeckMinMaxResponse = {
-  max: number
-  min: number
-}
 export type UpdateDecksArgs = Partial<CreateDecksArgs> & { id: string }
 export type DeleteDeckArgs = {
   id: string
 }
+
 export interface GetDeckByIdArgs {
   id: string
-}
-export interface GetCardsArgs {
-  id: string
-  orderBy?: string
-  question?: string
-  answer?: string
-  currentPage?: number
-  itemsPerPage?: number
 }
 
 export interface Card {
@@ -78,7 +68,27 @@ export interface Card {
   updated: string
 }
 
-export interface CardsListResponse {
-  pagination: Pagination
-  items: Card[]
+export type LearnDeckResponse = {
+  grade: number
+  id: string
+  deckId: string
+  userId: string
+  question: string
+  answer: string
+  shots: number
+  answerImg: string
+  questionImg: string
+  questionVideo: string
+  answerVideo: string
+  created: string
+  updated: string
+}
+export type LearnDeckArgs = {
+  id: string
+  previousCardId?: string
+}
+export type SaveGradeArgs = {
+  cardId: string
+  grade: number
+  id: string
 }
