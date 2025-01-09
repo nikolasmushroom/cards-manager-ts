@@ -1,5 +1,5 @@
-import { Button } from './Button'
 import './header.css'
+import { Button } from '@/stories/Button.tsx'
 
 type User = {
   name: string

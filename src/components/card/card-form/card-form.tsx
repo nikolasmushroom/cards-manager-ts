@@ -1,4 +1,4 @@
-import s from './card-modal.module.scss'
+import s from './card-form.module.scss'
 import { Button, Typography } from '@/components/ui'
 import { FormTextField } from '@/components/form/form-textfield.tsx'
 import { useForm } from 'react-hook-form'

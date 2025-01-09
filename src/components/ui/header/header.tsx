@@ -45,7 +45,7 @@ export const Header = ({
           >
             <>
               <DropdownItem>
-                <Avatar userName={userName} />
+                <Avatar src={userPhoto} userName={userName} />
                 <AvatarInfo name={userName} caption={userEmail} />
               </DropdownItem>
               <DropdownItemWithIcon icon={<ProfileIcon />} caption={'My Profile'} />

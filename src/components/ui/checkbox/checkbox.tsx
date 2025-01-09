@@ -8,7 +8,6 @@ import CheckedIcon from '../../../common/icons/CheckedIcon.tsx'
 export type CheckboxProps = {
   label?: string
   onCheckedChange?: (checked: boolean) => void
-  position?: 'left' | 'right' | 'default'
 } & ComponentPropsWithoutRef<typeof RadixCheckbox.Root>
 export const Checkbox = forwardRef<ElementRef<typeof RadixCheckbox.Root>, CheckboxProps>(
   (
@@ -18,7 +17,6 @@ export const Checkbox = forwardRef<ElementRef<typeof RadixCheckbox.Root>, Checkb
       defaultChecked,
       id = 'c1',
       disabled,
-      position = 'default',
       label,
       className,
       required,

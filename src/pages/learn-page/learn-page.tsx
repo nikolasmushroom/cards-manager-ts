@@ -28,7 +28,7 @@ export const LearnPage = () => {
     setShowAnswer(false)
   }
   return (
-    <div style={{ width: '100%' }}>
+    <div>
       <div className={s.linkBack}>
         <ArrowBack />
         <Typography variant={'Body2'} as={Link} to={`/`}>

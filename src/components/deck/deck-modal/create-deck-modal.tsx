@@ -20,7 +20,7 @@ export const CreateDeckModal = ({ clearFilterHandler, title }: Props) => {
     <>
       <Button onClick={() => setOpen(true)}>{title}</Button>
       <Modal open={open} title={'Add New Deck'} onClose={() => setOpen(false)}>
-        <DeckForm onConfirm={createDeckHandler} title={'Add New Card'} />
+        <DeckForm onConfirm={createDeckHandler} title={'Add New Deck'} />
       </Modal>
     </>
   )

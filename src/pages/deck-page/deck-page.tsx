@@ -36,7 +36,7 @@ export const DeckPage = ({}: Props) => {
     navigate(`/decks/${deckId}/learn`)
   }
   return (
-    <Page marginTop={'24px'} style={{ gap: '24px' }}>
+    <Page className={s.page}>
       <div className={s.linkBack}>
         <ArrowBack />
         <Typography variant={'Body2'} as={Link} to={`/`}>
@@ -61,7 +61,7 @@ export const DeckPage = ({}: Props) => {
             </Dropdown>
           )}
         </div>
-        {cardsData?.items.length &&
+        {cardsData?.items.length !== 0 &&
           (deckData?.userId === data?.id ? (
             <CardModal deckId={deckId ?? ''} title={'Add New Card'} />
           ) : (

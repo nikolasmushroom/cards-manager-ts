@@ -6,7 +6,7 @@ import { Typography } from '@/components/ui'
 import { Card } from '@/services/decks/decks.types.ts'
 import { Rating } from '@/components/ui/rating/rating.tsx'
 import { CardModal } from '@/components/card/card-modal/card-modal.tsx'
-import { DeleteCardModal } from '@/components/card/card-form/delete-card-modal.tsx'
+import { DeleteCardModal } from '@/components/card/card-modal/delete-card-modal.tsx'
 
 type Props = {
   cards?: Card[]

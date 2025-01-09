@@ -5,7 +5,7 @@ import {
   useChangeName,
 } from '@/components/auth/editProfile/changeName/useChangeName.ts'
 import { Button } from '@/components/ui/button'
-import { useEditProfileInfoMutation } from '@/services/auth/auth.service.ts'
+import { useUpdateUserDataMutation } from '@/services/auth/auth.service.ts'
 
 type Props = {
   src?: string
@@ -15,7 +15,7 @@ type Props = {
 
 export const ChangeName = ({ src, name, setEditMode }: Props) => {
   const { handleSubmit, control, setError } = useChangeName()
-  const [editProfileInfo] = useEditProfileInfoMutation()
+  const [editProfileInfo] = useUpdateUserDataMutation()
   const onSubmit = (values: changeNameForm) => {
     if (values.name !== name && name && src) {
       editProfileInfo({ name: values.name, avatar: src })

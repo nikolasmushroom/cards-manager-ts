@@ -17,11 +17,10 @@ export const EditProfile = ({ name, email, src, onLogOut }: Props) => {
     <Card className={s.formWrapper}>
       <Typography variant={'H1'}>Personal Information</Typography>
       <Avatar src={src} userName={name} size={'96px'} className={s.avatar} />
-      {!editMode ? (
+      {editMode && (
         <ProfileInfo name={name} email={email} setEditeMode={setEditMode} onLogOut={onLogOut} />
-      ) : (
-        <ChangeName src={src} name={name} setEditMode={setEditMode} />
       )}
+      {!editMode && <ChangeName src={src} name={name} setEditMode={setEditMode} />}
     </Card>
   )
 }

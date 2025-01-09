@@ -23,7 +23,7 @@ export const Modal = ({ title, onClose, children, className, open, ...rest }: Mo
     <Dialog.Root open={open} onOpenChange={onClose} {...rest}>
       <Dialog.Portal>
         <Dialog.Overlay className={classNames.overlay} />
-        <Dialog.Content className={classNames.content}>
+        <Dialog.Content className={classNames.content} aria-describedby={undefined}>
           <div className={s.Content}>
             <Card>
               {title && (

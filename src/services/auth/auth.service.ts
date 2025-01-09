@@ -65,7 +65,7 @@ export const authService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Auth'],
     }),
-    editProfileInfo: build.mutation<MeResponse, EditProfileArgs>({
+    updateUserData: build.mutation<MeResponse, EditProfileArgs>({
       query: args => ({
         url: '/v1/auth/me',
         method: 'PATCH',
@@ -90,7 +90,7 @@ export const authService = baseApi.injectEndpoints({
 })
 export const {
   useMeQuery,
-  useEditProfileInfoMutation,
+  useUpdateUserDataMutation,
   useSignUpMutation,
   useLoginMutation,
   useLogoutMutation,

@@ -10,18 +10,19 @@ import {
 import s from './decks-page.module.scss'
 import { useEffect, useState } from 'react'
 import TrashCan from '@/common/icons/TrashCan.tsx'
-import { useGetDecksQuery, useGetMinMaxCardsQuery } from '@/services/decks/decks.service.ts'
+import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { useDebounce } from '@/components/hooks/useDebounce.ts'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useMeQuery } from '@/services/auth/auth.service.ts'
 import { DecksTable } from '@/pages/decks-page/ui/decks-table'
-import { CreateDeckModal } from '@/components/deck/deck-dialog'
+import { CreateDeckModal } from '@/components/deck/deck-modal'
+import { useGetMinMaxCardsQuery } from '@/services/cards/cards.service.ts'
 
 export const DecksPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+  const [switcherValue, setSwitcherValue] = useState<string>('all')
   const search = searchParams.get('search') ?? ''
-  const navigate = useNavigate()
-  const { data } = useMeQuery()
+  const { data, isLoading: isMeLoading } = useMeQuery()
   const { data: minMaxData } = useGetMinMaxCardsQuery()
   const [userId, setUserId] = useState<string | undefined>('')
   const [sliderValue, setSliderValue] = useState<number[]>([
@@ -32,11 +33,7 @@ export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   const debouncedValue = useDebounce(search, 1000)
-  const {
-    data: decks,
-    isLoading,
-    error,
-  } = useGetDecksQuery({
+  const { data: decks, error } = useGetDecksQuery({
     authorId: userId,
     name: debouncedValue,
     currentPage: currentPage,
@@ -49,10 +46,14 @@ export const DecksPage = () => {
       setSliderValue([minMaxData.min, minMaxData.max])
       setSliderCommit([minMaxData.min, minMaxData.max])
     }
-    if (!data) {
-      navigate('/login')
+  }, [minMaxData])
+  useEffect(() => {
+    if (switcherValue === 'my') {
+      setUserId(data?.id)
+    } else {
+      setUserId('')
     }
-  }, [minMaxData, data])
+  }, [switcherValue])
 
   const handleSearchParams = (value: string) => {
     if (value.length) {
@@ -62,17 +63,15 @@ export const DecksPage = () => {
     }
     setSearchParams(searchParams)
   }
-  const handleSwitcherValue = (value: string) => {
-    value === 'My' ? setUserId(data?.id) : setUserId('')
-  }
+
   const clearFilterHandler = () => {
     setUserId('')
-    handleSwitcherValue('All')
+    setSwitcherValue('all')
     setSliderValue([minMaxData?.min ?? 0, minMaxData?.max ?? 10])
     handleSearchParams('')
     setCurrentPage(1)
   }
-  if (isLoading) {
+  if (isMeLoading) {
     return <h1>Loading...</h1>
   }
   if (error) {
@@ -95,12 +94,13 @@ export const DecksPage = () => {
         />
         <div className={s.tabs}>
           <TabSwitcher
-            label={'Show decks decks'}
+            label={'Show decks'}
+            value={switcherValue}
             tabs={[
-              { value: 'My', children: 'My Cards' },
-              { value: 'All', children: 'All Cards' },
+              { value: 'my', children: 'My Cards' },
+              { value: 'all', children: 'All Cards' },
             ]}
-            onValueChange={handleSwitcherValue}
+            onValueChange={setSwitcherValue}
           ></TabSwitcher>
         </div>
 

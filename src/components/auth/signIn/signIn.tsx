@@ -2,18 +2,29 @@ import { FormTextField } from '@/components/form/form-textfield.tsx'
 import { FormCheckbox } from '@/components/form/form-checkbox.tsx'
 import s from './signIn.module.scss'
 import { Link, useNavigate } from 'react-router-dom'
-import { SignInForm, useSignIn } from '@/components/auth/signIn/useSignIn.ts'
 import { Typography } from '@/components/ui/typography'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { useEffect } from 'react'
+import { SignInForm, useSignIn } from '@/components/auth/signIn/useSignIn.ts'
 
 type Props = {
   onSubmit: (values: SignInForm) => void
+  error: string | null
+  setValidationError: (error: string | null) => void
 }
 
-export const SignIn = ({ onSubmit }: Props) => {
-  const { handleSubmit, control } = useSignIn()
+export const SignIn = ({ onSubmit, error, setValidationError }: Props) => {
   const navigate = useNavigate()
+  const { setError, control, handleSubmit } = useSignIn()
+  useEffect(() => {
+    setValidationError(null)
+    if (error) {
+      setError('email', { message: error })
+      setError('password', { message: error })
+    }
+  }, [error])
+
   const navigateToForgotPassword = () => {
     navigate('/forgot-password')
   }
@@ -27,12 +38,7 @@ export const SignIn = ({ onSubmit }: Props) => {
         <FormCheckbox
           control={control}
           name="rememberMe"
-          style={{
-            width: '18px',
-            height: '18px',
-          }}
           label={'Remember me'}
-          position={'left'}
           className={s.checkbox}
         />
         <Typography

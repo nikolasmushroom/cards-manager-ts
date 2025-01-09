@@ -27,7 +27,13 @@ export const DeleteCardModal = ({ card }: Props) => {
             <Button variant={'secondary'} onClick={() => setOpen(false)}>
               Cancel
             </Button>
-            <Button type={'submit'} onClick={() => deleteCard({ id })}>
+            <Button
+              type={'submit'}
+              onClick={() => {
+                deleteCard({ id })
+                setOpen(false)
+              }}
+            >
               Delete Card
             </Button>
           </div>

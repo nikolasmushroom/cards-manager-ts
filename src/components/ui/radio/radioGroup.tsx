@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { Typography } from '../typography'
 
 export type RadioType = {
-  value: string
+  value: string | number
   label: string
   id?: string
 }
@@ -33,7 +33,7 @@ export const RadioGroup = ({
     return (
       <div className={s.radioContainer}>
         <div key={id} className={classNames.radioWrapper}>
-          <Radio.Item className={classNames.item} value={r.value} id={id}>
+          <Radio.Item className={classNames.item} value={r.value.toString()} id={id}>
             <Radio.Indicator className={classNames.indicator} />
           </Radio.Item>
         </div>

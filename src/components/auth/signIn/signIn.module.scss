@@ -11,13 +11,12 @@
   flex-flow: column;
   gap: 24px;
   width: 100%;
-
-  .checkbox {
-    max-width: 12.5rem;
-    margin-top: -23px;
-  }
 }
-
+.checkbox {
+  max-width: 12.5rem;
+  margin-top: -23px;
+  margin-left: -15px;
+}
 .forgotPassword {
   cursor: pointer;
   margin: -18px 12px 0 0;

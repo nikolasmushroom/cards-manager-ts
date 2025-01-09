@@ -9,12 +9,10 @@ const SignInSchema = z.object({
 })
 export type SignInForm = z.infer<typeof SignInSchema>
 export const useSignIn = () => {
-  const { handleSubmit, control } = useForm<SignInForm>({
+  const { handleSubmit, control, setError } = useForm<SignInForm>({
     resolver: zodResolver(SignInSchema),
     defaultValues: { email: '', password: '' },
+    mode: 'onBlur',
   })
-  return {
-    handleSubmit,
-    control,
-  }
+  return { handleSubmit, control, setError }
 }

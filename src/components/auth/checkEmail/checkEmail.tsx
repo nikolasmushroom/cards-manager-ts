@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom'
 
 type Props = {
   link: string
+  email?: string
 }
-export const CheckEmail = ({ link }: Props) => {
+export const CheckEmail = ({ link, email }: Props) => {
   return (
     <Card className={s.formWrapper}>
       <Typography variant={'H1'}>Check Email</Typography>
@@ -14,7 +15,7 @@ export const CheckEmail = ({ link }: Props) => {
         <EmailMessageIcon />
       </div>
       <Typography variant={'Body2'} as={'p'} className={s.description}>
-        We’ve sent an Email with instructions to example@mail.com
+        We’ve sent an Email with instructions to {email}
       </Typography>
       <Button as={Link} fullWidth to={link} variant={'primary'} className={s.button}>
         Back to Sign In

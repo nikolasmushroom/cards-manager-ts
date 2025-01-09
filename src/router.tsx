@@ -14,7 +14,18 @@ import { Profile } from '@/pages/profile'
 import { DeckPage } from '@/pages/deck-page/deck-page.tsx'
 import { DecksPage } from '@/pages/decks-page/ui/decks-page.tsx'
 import { LearnPage } from '@/pages/learn-page/learn-page.tsx'
-import { Layout } from '@/components/ui/layout/layout.tsx'
+import { Layout } from '@/pages/layout/layout.tsx'
+import { useMeQuery } from '@/services/auth/auth.service.ts'
+
+function PrivateRoutes() {
+  const { data, isLoading } = useMeQuery()
+  const isAuthenticated = !!data
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />
+}
 
 const publicRoutes: RouteObject[] = [
   {
@@ -30,11 +41,11 @@ const publicRoutes: RouteObject[] = [
     element: <ForgotPasswordPage />,
   },
   {
-    path: '/check-email',
+    path: '/check-email/:email',
     element: <CheckEmailPage />,
   },
   {
-    path: '/recover-password/:token',
+    path: '/reset-password/:token',
     element: <CreateNewPasswordPage />,
   },
   {
@@ -56,13 +67,6 @@ const privateRoutes: RouteObject[] = [
     element: <LearnPage />,
   },
 ]
-
-function PrivateRoutes() {
-  const isAuthenticated = true
-
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
-}
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -71,5 +75,6 @@ export const router = createBrowserRouter([
   },
 ])
 export const Router = () => {
+  const {} = useMeQuery()
   return <RouterProvider router={router} />
 }
