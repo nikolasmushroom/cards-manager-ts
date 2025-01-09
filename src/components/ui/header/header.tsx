@@ -1,4 +1,4 @@
-import s from './Header.module.scss'
+import s from './header.module.scss'
 import { ComponentPropsWithoutRef } from 'react'
 import Logo from '../../../common/icons/LogoImage'
 import { Button } from '../button'
