@@ -48,10 +48,6 @@ const publicRoutes: RouteObject[] = [
     path: '/reset-password/:token',
     element: <CreateNewPasswordPage />,
   },
-  {
-    path: '/profile',
-    element: <Profile />,
-  },
 ]
 const privateRoutes: RouteObject[] = [
   {
@@ -65,6 +61,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/decks/:deckId/learn',
     element: <LearnPage />,
+  },
+  {
+    path: '/profile',
+    element: <Profile />,
   },
 ]
 export const router = createBrowserRouter([

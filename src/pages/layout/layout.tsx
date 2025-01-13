@@ -3,7 +3,6 @@ import s from './layout.module.scss'
 import { Header } from '@/components/ui'
 import { useLogoutMutation, useMeQuery } from '@/services/auth/auth.service.ts'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { Progress } from '@radix-ui/themes'
 
 type Props = {
   contentMarginTop?: CSSProperties['marginTop']
@@ -17,11 +16,14 @@ export const Layout = forwardRef<ElementRef<'div'>, Props>(
     const navigateToLogin = () => {
       navigate('/login')
     }
+    const navigateToProfile = () => {
+      navigate('/profile')
+    }
     const logoutHandler = () => {
       logout({})
         .unwrap()
         .then(() => {
-          navigate('/login')
+          navigateToLogin()
         })
     }
     if (isLoading) {
@@ -32,13 +34,13 @@ export const Layout = forwardRef<ElementRef<'div'>, Props>(
         <Header
           isLoggedIn={!!data}
           navigateToLogin={navigateToLogin}
+          navigateToProfile={navigateToProfile}
           userPhoto={data?.avatar}
           userName={data?.name}
           shortName={data?.name}
           userEmail={data?.email}
           logout={logoutHandler}
         />
-        <Progress duration={`30s`} />
         <main className={s.main}>
           <Outlet />
         </main>

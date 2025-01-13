@@ -16,6 +16,7 @@ export type HeaderProps = {
   userEmail?: string
   shortName?: string
   navigateToLogin?: () => void
+  navigateToProfile?: () => void
   logout: () => void
 } & ComponentPropsWithoutRef<'header'>
 export const Header = ({
@@ -25,6 +26,7 @@ export const Header = ({
   userName,
   userPhoto,
   userEmail,
+  navigateToProfile,
   logout,
   ...rest
 }: HeaderProps) => {
@@ -48,7 +50,11 @@ export const Header = ({
                 <Avatar src={userPhoto} userName={userName} />
                 <AvatarInfo name={userName} caption={userEmail} />
               </DropdownItem>
-              <DropdownItemWithIcon icon={<ProfileIcon />} caption={'My Profile'} />
+              <DropdownItemWithIcon
+                icon={<ProfileIcon />}
+                caption={'My Profile'}
+                onClick={navigateToProfile}
+              />
               <DropdownItemWithIcon icon={<Logout />} caption={'Sign Out'} onClick={logout} />
             </>
           </Dropdown>

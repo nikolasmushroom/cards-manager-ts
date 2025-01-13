@@ -1,32 +1,37 @@
 import s from './ChangeName.module.scss'
 import { FormTextField } from '@/components/form/form-textfield.tsx'
-import {
-  changeNameForm,
-  useChangeName,
-} from '@/components/auth/editProfile/changeName/useChangeName.ts'
 import { Button } from '@/components/ui/button'
-import { useUpdateUserDataMutation } from '@/services/auth/auth.service.ts'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { useEffect } from 'react'
 
 type Props = {
-  src?: string
+  error?: string | null
   name?: string
-  setEditMode: (value: boolean) => void
+  onSubmitHandler: (values: changeNameForm) => void
 }
-
-export const ChangeName = ({ src, name, setEditMode }: Props) => {
-  const { handleSubmit, control, setError } = useChangeName()
-  const [editProfileInfo] = useUpdateUserDataMutation()
-  const onSubmit = (values: changeNameForm) => {
-    if (values.name !== name && name && src) {
-      editProfileInfo({ name: values.name, avatar: src })
-      setEditMode(false)
-    } else {
-      setError('name', { message: 'Name should be different' })
+const changeNameSchema = z.object({
+  name: z.string().trim(),
+  avatar: z.string().trim(),
+})
+export type changeNameForm = z.infer<typeof changeNameSchema>
+export const ChangeName = ({ name, onSubmitHandler, error }: Props) => {
+  const { handleSubmit, control, setError, clearErrors } = useForm<changeNameForm>({
+    defaultValues: { name: name, avatar: '' },
+    resolver: zodResolver(changeNameSchema),
+  })
+  useEffect(() => {
+    if (error) {
+      setError(`name`, { type: 'custom', message: error })
     }
-  }
+    if (!error) {
+      clearErrors()
+    }
+  }, [error])
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+    <form onSubmit={handleSubmit(onSubmitHandler)} className={s.form}>
       <FormTextField control={control} name={'name'} label={'Name'} />
       <Button type={'submit'} className={s.submitButton}>
         Save Changes
