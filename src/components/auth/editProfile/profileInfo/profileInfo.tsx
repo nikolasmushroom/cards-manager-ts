@@ -8,11 +8,12 @@ import { Button } from '@/components/ui'
 type Props = {
   name?: string
   email?: string
+  logout?: () => void
   setEditeMode: (value: boolean) => void
   onLogOut?: () => void
 }
 
-export const ProfileInfo = ({ name, email, setEditeMode }: Props) => {
+export const ProfileInfo = ({ name, email, setEditeMode, logout }: Props) => {
   const onEditModHandler = () => setEditeMode(true)
 
   return (
@@ -25,7 +26,7 @@ export const ProfileInfo = ({ name, email, setEditeMode }: Props) => {
       <Typography variant="Body2" className={s.email}>
         {email}
       </Typography>
-      <Button type="submit" variant={'secondary'} className={s.button}>
+      <Button type="submit" variant={'secondary'} className={s.button} onClick={logout}>
         <Logout />
         <Typography variant={'Subtitle2'} as={'p'}>
           Logout
