@@ -71,6 +71,7 @@ export const authService = baseApi.injectEndpoints({
         method: 'PATCH',
         body: args,
       }),
+      invalidatesTags: ['Auth'],
     }),
     recoveryPassword: build.mutation<MeResponse, RecoveryPasswordArgs>({
       query: args => ({
