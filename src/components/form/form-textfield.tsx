@@ -6,7 +6,7 @@ type Props<T extends FieldValues> = Omit<TextFieldProps, 'value' | 'name' | 'onC
 export const FormTextField = <T extends FieldValues>({ control, name, ...rest }: Props<T>) => {
   const {
     field: { value = '', ...fieldProps },
-    fieldState: { error },
+    fieldState: { error, invalid },
   } = useController({
     control,
     name,
