@@ -1,0 +1,11 @@
+import { ComponentPropsWithoutRef } from 'react';
+export type TableProps = {} & ComponentPropsWithoutRef<'table'>;
+export declare const Table: import("react").ForwardRefExoticComponent<Omit<import("react").DetailedHTMLProps<import("react").TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, "ref"> & import("react").RefAttributes<HTMLTableElement>>;
+export type THeadProps = {} & ComponentPropsWithoutRef<'thead'>;
+export declare const THead: import("react").ForwardRefExoticComponent<Omit<import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>, "ref"> & import("react").RefAttributes<HTMLTableSectionElement>>;
+export type TBodyProps = {} & ComponentPropsWithoutRef<'tbody'>;
+export declare const TBody: import("react").ForwardRefExoticComponent<Omit<import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>, "ref"> & import("react").RefAttributes<HTMLTableSectionElement>>;
+export type TRowProps = {} & ComponentPropsWithoutRef<'tr'>;
+export declare const TRow: import("react").ForwardRefExoticComponent<Omit<import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>, "ref"> & import("react").RefAttributes<HTMLTableRowElement>>;
+export type TCellProps = {} & ComponentPropsWithoutRef<'td'>;
+export declare const TCell: import("react").ForwardRefExoticComponent<Omit<import("react").DetailedHTMLProps<import("react").TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>, "ref"> & import("react").RefAttributes<HTMLTableDataCellElement>>;
