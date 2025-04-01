@@ -14,11 +14,14 @@ export const CardModal = ({ card, deckId, title }: Props) => {
   const [open, setOpen] = useState(false)
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
-  const createCardHandler = (data: CardFormValues) => {
+  const createCardHandler = (
+    data: CardFormValues & { answerImg: File | null; questionImg: File | null }
+  ) => {
     if (card) {
       updateCard({ id: card.id, ...data })
       setOpen(false)
     } else if (!card && deckId) {
+      console.log(1)
       createCard({ id: deckId, ...data })
       setOpen(false)
     }
@@ -34,6 +37,12 @@ export const CardModal = ({ card, deckId, title }: Props) => {
         open={open}
         title={card ? 'Update Card' : 'Add New Card'}
         onClose={() => setOpen(false)}
+        style={{
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
       >
         <CardForm
           values={{

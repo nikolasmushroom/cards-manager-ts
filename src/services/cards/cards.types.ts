@@ -4,8 +4,8 @@ export type CreateCardArgs = {
   id: string
   question: string
   answer: string
-  questionImg?: string
-  answerImg?: string
+  questionImg?: File | null
+  answerImg?: File | null
   questionVideo?: string
   answerVideo?: string
 }
@@ -30,8 +30,8 @@ export type UpdateCardArgs = {
   id: string
   question?: string
   answer?: string
-  questionImg?: string
-  answerImg?: string
+  questionImg?: File | null
+  answerImg?: File | null
   questionVideo?: string
   answerVideo?: string
 }

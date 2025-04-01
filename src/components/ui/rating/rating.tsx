@@ -1,5 +1,5 @@
 import s from './rating.module.scss'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useState } from 'react'
 import StarOutline from '@/common/icons/StarOutline.tsx'
 import StarIcon from '@/common/icons/StarIcon.tsx'
 
@@ -9,37 +9,28 @@ type Props = {
   gradeNumber?: number
   changeRatingOnClick?: boolean
 }
-export const Rating = ({ gradeNumber, itemsNumber, changeRatingOnClick }: Props) => {
-  const [rating, setRating] = useState<number>(0)
-  const arr = []
-  for (let i = 1; i <= itemsNumber; i++) {
-    arr.push(i)
-  }
-  useEffect(() => {
-    if (gradeNumber) {
-      setRating(gradeNumber)
+export const Rating = ({ gradeNumber = 0, itemsNumber, changeRatingOnClick }: Props) => {
+  const [localRating, setLocalRating] = useState(gradeNumber)
+  const rating = gradeNumber !== undefined ? gradeNumber : localRating
+
+  const handleClick = (i: number) => {
+    if (changeRatingOnClick) {
+      setLocalRating(i)
     }
-  }, [gradeNumber])
+  }
   return (
     <div className={s.ratingContainer}>
-      {arr.map(i => {
-        if (i <= rating) {
-          return (
-            <StarIcon
-              key={i}
-              onClick={() => setRating(i)}
-              pointerEvents={changeRatingOnClick ? '' : 'none'}
-            />
-          )
-        } else {
-          return (
-            <StarOutline
-              key={i}
-              onClick={() => setRating(i)}
-              pointerEvents={changeRatingOnClick ? '' : 'none'}
-            />
-          )
-        }
+      {Array.from({ length: itemsNumber }, (_, i) => {
+        const starValue = i + 1
+        const StarComponent = starValue <= rating ? StarIcon : StarOutline
+
+        return (
+          <StarComponent
+            key={starValue}
+            onClick={() => handleClick(starValue)}
+            pointerEvents={changeRatingOnClick ? '' : 'none'}
+          />
+        )
       })}
     </div>
   )

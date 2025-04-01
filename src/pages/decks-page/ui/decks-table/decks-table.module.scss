@@ -1,5 +1,22 @@
 .table {
   width: 100%;
+  table-layout: fixed;
+}
+.deckName {
+  width: 20%;
+  align-items: center;
+}
+.cardsCount {
+  width: 20%;
+}
+.lastUpdated {
+  width: 20%;
+}
+.createdBy {
+  width: 28%;
+}
+.icons {
+  width: 12%;
 }
 .iconsContainer {
   display: flex;

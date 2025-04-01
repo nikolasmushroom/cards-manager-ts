@@ -137,6 +137,7 @@ export const decksService = baseApi.injectEndpoints({
         url: `v1/decks/${args.id}`,
         method: 'GET',
         parameters: args,
+        providesTags: ['Deck'],
       }),
     }),
     learnDeck: build.query<LearnDeckResponse, LearnDeckArgs>({
@@ -153,7 +154,7 @@ export const decksService = baseApi.injectEndpoints({
         method: 'POST',
         body: { cardId, grade },
       }),
-      invalidatesTags: ['Cards'],
+      invalidatesTags: ['Decks', 'Cards'],
     }),
   }),
 })

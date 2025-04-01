@@ -1,5 +1,5 @@
 import s from './modal.module.scss'
-import { ComponentPropsWithRef } from 'react'
+import { ComponentPropsWithRef, CSSProperties } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { clsx } from 'clsx'
 import { Card } from '../card'
@@ -12,9 +12,18 @@ export type ModalProps = {
   onClose?: () => void
   title?: string
   className?: string
+  style?: CSSProperties
 } & ComponentPropsWithRef<typeof Dialog.Root>
 
-export const Modal = ({ title, onClose, children, className, open, ...rest }: ModalProps) => {
+export const Modal = ({
+  title,
+  onClose,
+  children,
+  className,
+  open,
+  style,
+  ...rest
+}: ModalProps) => {
   const classNames = {
     overlay: clsx(s.Overlay),
     content: clsx(s.Content),
@@ -25,7 +34,7 @@ export const Modal = ({ title, onClose, children, className, open, ...rest }: Mo
         <Dialog.Overlay className={classNames.overlay} />
         <Dialog.Content className={classNames.content} aria-describedby={undefined}>
           <div className={s.Content}>
-            <Card>
+            <Card style={style}>
               {title && (
                 <DialogTitle className={s.Title}>
                   <Typography variant={'H3'}>{title}</Typography>

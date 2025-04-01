@@ -1,5 +1,32 @@
+.table {
+  width: 100%;
+  table-layout: fixed;
+}
+.question {
+  width: 30%;
+}
+.answer {
+  width: 30%;
+}
+.lastUpdated {
+  width: 13%;
+}
+.lastUpdatedWidth {
+  width: 30%;
+}
+.grade {
+  width: 17%;
+}
+.gradeWidth {
+  width: 20%;
+}
+.icons {
+  width: 10%;
+}
 .iconsContainer {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
 
   & > * {

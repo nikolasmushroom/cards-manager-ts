@@ -9,6 +9,8 @@ import StartIcon from '@/common/icons/StartIcon.tsx'
 import { useNavigate } from 'react-router-dom'
 import { UpdateDeckModal } from '@/components/deck/deck-modal/update-deck-modal.tsx'
 import { DeleteDeckModal } from '@/components/deck/deck-modal/delete-deck-modal.tsx'
+import Pencil from '@/common/icons/Pencil.tsx'
+import TrashCan from '@/common/icons/TrashCan.tsx'
 
 type Props = {
   currentUserId?: string
@@ -34,27 +36,31 @@ export const DecksTable = ({ currentUserId, decks }: Props) => {
         {decks?.map(deck => {
           return (
             <TRow key={deck.id}>
-              <TCell>
+              <TCell className={s.deckName}>
                 <Typography variant={'Body2'}>{deck.name}</Typography>
               </TCell>
-              <TCell>
+              <TCell className={s.cardsCount}>
                 <Typography variant={'Body2'}>{deck.cardsCount}</Typography>
               </TCell>
-              <TCell>
+              <TCell className={s.lastUpdated}>
                 <Typography variant={'Body2'}>
                   {new Date(deck.updated).toLocaleDateString('ru-RU')}
                 </Typography>
               </TCell>
-              <TCell>
+              <TCell className={s.createdBy}>
                 <Typography variant={'Body2'}>{deck.author.name}</Typography>
               </TCell>
-              <TCell>
+              <TCell className={s.icons}>
                 <div className={s.iconsContainer}>
                   <StartIcon onClick={() => onNavigateTo(deck.id)} />
                   {deck.userId === currentUserId && (
                     <>
-                      <UpdateDeckModal title={'Update Deck'} deck={deck} />
-                      <DeleteDeckModal deck={deck} />
+                      <UpdateDeckModal title={'Update Deck'} deck={deck}>
+                        <Pencil />
+                      </UpdateDeckModal>
+                      <DeleteDeckModal deck={deck}>
+                        <TrashCan />
+                      </DeleteDeckModal>
                     </>
                   )}
                 </div>

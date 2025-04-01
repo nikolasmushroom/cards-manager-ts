@@ -2,7 +2,6 @@ import { baseApi } from '@/services/baseApi.ts'
 import {
   AuthMeInterface,
   CreateNewAccount,
-  EditProfileArgs,
   LoginResponse,
   MeResponse,
   RecoveryPasswordArgs,
@@ -65,7 +64,7 @@ export const authService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Auth'],
     }),
-    updateUserData: build.mutation<MeResponse, EditProfileArgs>({
+    updateUserData: build.mutation<MeResponse, FormData>({
       query: args => ({
         url: '/v1/auth/me',
         method: 'PATCH',

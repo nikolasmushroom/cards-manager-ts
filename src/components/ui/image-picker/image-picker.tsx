@@ -1,9 +1,9 @@
-import { ComponentPropsWithoutRef, ReactNode, useRef } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, ReactNode, useRef } from 'react'
 import s from './image-picker.module.scss'
 
 type Props = {
   children?: ReactNode
-  onChange?: () => void
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 } & ComponentPropsWithoutRef<'input'>
 export const ImagePicker = ({ children, onChange }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null)

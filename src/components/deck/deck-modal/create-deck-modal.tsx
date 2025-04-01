@@ -11,7 +11,7 @@ type Props = {
 export const CreateDeckModal = ({ clearFilterHandler, title }: Props) => {
   const [open, setOpen] = useState(false)
   const [createDeck] = useCreateDeckMutation()
-  const createDeckHandler = (data: CreateDecksArgs) => {
+  const createDeckHandler = (data: CreateDecksArgs & {}) => {
     createDeck(data)
     clearFilterHandler()
     setOpen(false)

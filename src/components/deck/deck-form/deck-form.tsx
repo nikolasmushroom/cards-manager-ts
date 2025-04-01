@@ -25,7 +25,7 @@ type Props = {
 export const DeckForm = ({ values, onConfirm, title }: Props) => {
   const [cover, setCover] = useState<File | null>(null)
   const defaultCover = 'https://placehold.co/484x119'
-  const preview = cover ? URL.createObjectURL(cover) : values?.cover
+  const [preview, setPreview] = useState<string>(values?.cover || defaultCover)
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
       name: values?.name || '',
@@ -33,21 +33,46 @@ export const DeckForm = ({ values, onConfirm, title }: Props) => {
     },
   })
   useEffect(() => {
-    if (values?.cover) {
-      setCover(null)
+    if (cover) {
+      setPreview(URL.createObjectURL(cover))
+    } else {
+      setPreview(values?.cover || defaultCover)
     }
-  }, [values?.cover])
+    return () => {
+      URL.revokeObjectURL(preview)
+    }
+  }, [values?.cover, cover])
   const onSubmit = (data: FormValues) => {
     onConfirm({ ...data, cover })
     reset()
   }
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      {preview ? (
-        <img className={s.cover} src={preview} alt={'cover'} />
-      ) : (
-        <img className={s.cover} src={defaultCover} alt={'cover'} />
+      {preview && (
+        <img
+          className={s.cover}
+          src={preview}
+          alt={'cover'}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '200px',
+            objectFit: 'contain',
+          }}
+        />
       )}
+      {!preview && (
+        <img
+          className={s.cover}
+          src={defaultCover}
+          alt={'cover'}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '300px',
+            objectFit: 'contain',
+          }}
+        />
+      )}
+
       <FormTextField name={'name'} control={control} label={'Name deck'} />
       <FilePicker
         cover={cover}

@@ -17,13 +17,14 @@ export const SliderCustom = ({
   onValueChange,
   disabled,
   step = 1,
-  max = 10,
-  min = 1,
+  max,
+  min,
   ...rest
 }: SliderCustomProps) => {
   const classNames = {
     root: clsx(s.Root, className),
   }
+
   return (
     <div className={s.sliderContainer}>
       <div className={s.boxContainer}>
@@ -32,7 +33,6 @@ export const SliderCustom = ({
       <form>
         <Slider.Root
           className={classNames.root}
-          defaultValue={[2, 10]}
           max={max}
           min={min}
           step={step}

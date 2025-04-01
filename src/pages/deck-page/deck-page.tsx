@@ -15,6 +15,8 @@ import Edit from '@/common/icons/Edit.tsx'
 import TrashCan from '@/common/icons/TrashCan.tsx'
 import { CardModal } from '@/components/card/card-modal/card-modal.tsx'
 import { useGetDeckCardsQuery } from '@/services/cards/cards.service.ts'
+import { DeleteDeckModal } from '@/components/deck/deck-modal/delete-deck-modal.tsx'
+import { UpdateDeckModal } from '@/components/deck/deck-modal/update-deck-modal.tsx'
 
 type Props = {}
 export const DeckPage = ({}: Props) => {
@@ -22,6 +24,8 @@ export const DeckPage = ({}: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [itemsPerPage, setItemsPrtPage] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean | undefined>(false)
+  const [editModalOpen, setEditModalOpen] = useState<boolean | undefined>(false)
   const navigate = useNavigate()
   const searchByuQuestion = useDebounce(search, 1000)
   const { data } = useMeQuery()
@@ -32,6 +36,7 @@ export const DeckPage = ({}: Props) => {
     itemsPerPage,
     question: searchByuQuestion,
   })
+  const isMyDeck = data?.id === deckData?.userId
   const navigateToLearnPageHandler = () => {
     navigate(`/decks/${deckId}/learn`)
   }
@@ -43,26 +48,48 @@ export const DeckPage = ({}: Props) => {
           Back to Decks List
         </Typography>
       </div>
-
+      {deckData && (
+        <>
+          <DeleteDeckModal
+            deck={deckData}
+            openModal={deleteModalOpen}
+            onOpenModal={setDeleteModalOpen}
+          />
+          <UpdateDeckModal
+            title={'Update Deck'}
+            deck={deckData}
+            openModal={editModalOpen}
+            onOpenModal={setEditModalOpen}
+          />
+        </>
+      )}
       <div className={s.header}>
         <div className={s.menuContainer}>
           <Typography variant={'H1'} as={'h1'}>
             {deckData?.name}
           </Typography>
-          {deckData?.userId === data?.id && (
+          {isMyDeck && (
             <Dropdown trigger={<MenuIcon />}>
               <DropdownItemWithIcon
                 caption={'Learn'}
                 icon={<StartIcon />}
                 onClick={navigateToLearnPageHandler}
               />
-              <DropdownItemWithIcon caption={'Edit'} icon={<Edit />} />
-              <DropdownItemWithIcon caption={'Delete'} icon={<TrashCan />} />
+              <DropdownItemWithIcon
+                caption={'Edit'}
+                icon={<Edit />}
+                onClick={() => setEditModalOpen(true)}
+              />
+              <DropdownItemWithIcon
+                caption={'Delete'}
+                icon={<TrashCan />}
+                onClick={() => setDeleteModalOpen(true)}
+              />
             </Dropdown>
           )}
         </div>
         {cardsData?.items.length !== 0 &&
-          (deckData?.userId === data?.id ? (
+          (isMyDeck ? (
             <CardModal deckId={deckId ?? ''} title={'Add New Card'} />
           ) : (
             <Button onClick={navigateToLearnPageHandler}>Learn deck</Button>
@@ -77,7 +104,7 @@ export const DeckPage = ({}: Props) => {
               onChange={e => setSearch(e.currentTarget.value)}
             />
           </div>
-          <CardsTable cards={cardsData?.items} currentUserId={data?.id} />
+          <CardsTable cards={cardsData?.items} isMyDeck={isMyDeck} />
           <div className={s.paginationContainer}>
             <Pagination
               initialPage={currentPage}
@@ -94,7 +121,7 @@ export const DeckPage = ({}: Props) => {
           <Typography variant={'Body1'}>
             This pack is empty. Click add new card to fill this pack
           </Typography>
-          {deckData?.userId === data?.id ? (
+          {isMyDeck ? (
             <CardModal deckId={deckId ?? ''} title={'Create New Card'} />
           ) : (
             <Button onClick={navigateToLearnPageHandler}>Learn deck</Button>

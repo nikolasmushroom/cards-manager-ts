@@ -28,7 +28,7 @@ export const LearnPage = () => {
     setShowAnswer(false)
   }
   return (
-    <div>
+    <div className={s.page}>
       <div className={s.linkBack}>
         <ArrowBack />
         <Typography variant={'Body2'} as={Link} to={`/`}>
@@ -60,15 +60,17 @@ export const LearnPage = () => {
                 />
               </div>
             </div>
-            <Button onClick={showAnswerHandler} className={s.button}>
+            <Button onClick={showAnswerHandler} className={s.button} fullWidth={true}>
               Next Question
             </Button>
           </>
         )}
 
-        <Button onClick={() => setShowAnswer(true)} className={s.button}>
-          Show Answer
-        </Button>
+        {!showAnswer && (
+          <Button onClick={() => setShowAnswer(true)} className={s.button} fullWidth={true}>
+            Show Answer
+          </Button>
+        )}
       </Card>
     </div>
   )

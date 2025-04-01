@@ -8,75 +8,36 @@ import {
   Typography,
 } from '@/components/ui'
 import s from './decks-page.module.scss'
-import { useEffect, useState } from 'react'
 import TrashCan from '@/common/icons/TrashCan.tsx'
-import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import { useDebounce } from '@/components/hooks/useDebounce.ts'
-import { useSearchParams } from 'react-router-dom'
-import { useMeQuery } from '@/services/auth/auth.service.ts'
 import { DecksTable } from '@/pages/decks-page/ui/decks-table'
 import { CreateDeckModal } from '@/components/deck/deck-modal'
-import { useGetMinMaxCardsQuery } from '@/services/cards/cards.service.ts'
+import { useDecksPage } from '@/common/hooks/useDecksPage.ts'
 
 export const DecksPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const [switcherValue, setSwitcherValue] = useState<string>('all')
-  const search = searchParams.get('search') ?? ''
-  const { data, isLoading: isMeLoading } = useMeQuery()
-  const { data: minMaxData } = useGetMinMaxCardsQuery()
-  const [userId, setUserId] = useState<string | undefined>('')
-  const [sliderValue, setSliderValue] = useState<number[]>([
-    minMaxData?.min ?? 0,
-    minMaxData?.max ?? 10,
-  ])
-  const [sliderCommit, setSliderCommit] = useState<number[]>(sliderValue)
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
-  const debouncedValue = useDebounce(search, 1000)
-  const { data: decks, error } = useGetDecksQuery({
-    authorId: userId,
-    name: debouncedValue,
-    currentPage: currentPage,
-    itemsPerPage: itemsPerPage,
-    minCardsCount: sliderCommit[0],
-    maxCardsCount: sliderCommit[1],
-  })
-  useEffect(() => {
-    if (minMaxData) {
-      setSliderValue([minMaxData.min, minMaxData.max])
-      setSliderCommit([minMaxData.min, minMaxData.max])
-    }
-  }, [minMaxData])
-  useEffect(() => {
-    if (switcherValue === 'my') {
-      setUserId(data?.id)
-    } else {
-      setUserId('')
-    }
-  }, [switcherValue])
+  const {
+    data,
+    decks,
+    search,
+    authorId,
+    currentPage,
+    isLoading,
+    minMaxData,
+    itemsPerPage,
+    sliderData,
+    sliderValue,
+    setCurrentPage,
+    setSliderValue,
+    handleTabValueChange,
+    handleSearchParams,
+    setItemsPerPage,
+    clearFilterHandler,
+    setSliderCommit,
+  } = useDecksPage()
 
-  const handleSearchParams = (value: string) => {
-    if (value.length) {
-      searchParams.set('search', value)
-    } else {
-      searchParams.delete('search')
-    }
-    setSearchParams(searchParams)
+  if (isLoading) {
+    return <div>loader</div>
   }
-
-  const clearFilterHandler = () => {
-    setUserId('')
-    setSwitcherValue('all')
-    setSliderValue([minMaxData?.min ?? 0, minMaxData?.max ?? 10])
-    handleSearchParams('')
-    setCurrentPage(1)
-  }
-  if (isMeLoading) {
-    return <h1>Loading...</h1>
-  }
-  if (error) {
-    return <div>Error: {JSON.stringify(error)}</div>
-  }
+  console.log(sliderValue)
   return (
     <Page>
       <div className={s.header}>
@@ -95,19 +56,20 @@ export const DecksPage = () => {
         <div className={s.tabs}>
           <TabSwitcher
             label={'Show decks'}
-            value={switcherValue}
+            value={authorId ? 'my' : 'all'}
             tabs={[
               { value: 'my', children: 'My Cards' },
               { value: 'all', children: 'All Cards' },
             ]}
-            onValueChange={setSwitcherValue}
-          ></TabSwitcher>
+            onValueChange={handleTabValueChange}
+          />
         </div>
 
         <SliderCustom
-          value={sliderValue}
-          min={minMaxData?.min ?? 0}
-          max={minMaxData?.max ?? 10}
+          defaultValue={sliderData}
+          value={[sliderValue[0], sliderValue[1]]}
+          min={minMaxData?.min}
+          max={minMaxData?.max}
           onValueChange={setSliderValue}
           onValueCommit={setSliderCommit}
         />

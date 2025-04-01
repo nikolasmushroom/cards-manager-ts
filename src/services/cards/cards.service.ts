@@ -20,7 +20,11 @@ export const cardsService = baseApi.injectEndpoints({
       providesTags: ['DeckCards'],
     }),
     getMinMaxCards: build.query<DeckMinMaxResponse, void>({
-      query: () => 'v2/decks/min-max-cards',
+      query: () => ({
+        url: 'v2/decks/min-max-cards',
+        method: 'GET',
+      }),
+      providesTags: ['minMaxCards'],
     }),
     updateCard: build.mutation<CreateCardResponse, UpdateCardArgs>({
       async onQueryStarted({ id, ...args }, { dispatch, getState, queryFulfilled }) {

@@ -1,10 +1,11 @@
 .page {
   margin-top: 24px;
+  width: 100%;
   gap: 24px;
 }
 .linkBack {
-  align-items: center;
   display: flex;
+  align-items: center;
 
   & > :not(:first-child) {
     margin-left: 6px;
@@ -30,6 +31,16 @@
   align-items: center;
   gap: 30px;
   margin: 0 auto;
+}
+.paginationContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .textField {
   width: 100%;
